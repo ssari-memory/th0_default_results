@@ -1,0 +1,2537 @@
+sim-outorder: SimpleScalar/Alpha Tool Set version 3.0 of August, 2003.
+Copyright (c) 1994-2003 by Todd M. Austin, Ph.D. and SimpleScalar, LLC.
+All Rights Reserved. This version of SimpleScalar is licensed for academic
+non-commercial use.  No portion of this work may be used by any commercial
+entity, or for any commercial purpose, without the prior written permission
+of SimpleScalar, LLC (info@simplescalar.com).
+
+
+Processor Parameters:
+Issue Width: 4
+Window Size: 224
+Number of Virtual Registers: 32
+Number of Physical Registers: 256
+Datapath Width: 64
+Total Power Consumption: 110.149
+Branch Predictor Power Consumption: 4.52313  (4.18%)
+ branch target buffer power (W): 4.16837
+ local predict power (W): 0.0879711
+ global predict power (W): 0.0996078
+ chooser power (W): 0.0702439
+ RAS power (W): 0.0969383
+Rename Logic Power Consumption: 0.683325  (0.632%)
+ Instruction Decode Power (W): 0.0159915
+ RAT decode_power (W): 0.113514
+ RAT wordline_power (W): 0.0493708
+ RAT bitline_power (W): 0.493541
+ DCL Comparators (W): 0.0109075
+Instruction Window Power Consumption: 14.2762  (13.2%)
+ tagdrive (W): 0.827064
+ tagmatch (W): 0.360565
+ Selection Logic (W): 0.0885831
+ decode_power (W): 1.16922
+ wordline_power (W): 0.0844643
+ bitline_power (W): 11.7463
+Load/Store Queue Power Consumption: 7.97171  (7.37%)
+ tagdrive (W): 3.75392
+ tagmatch (W): 1.61238
+ decode_power (W): 0.181222
+ wordline_power (W): 0.0150119
+ bitline_power (W): 2.40917
+Arch. Register File Power Consumption: 3.57247  (3.3%)
+ decode_power (W): 0.113514
+ wordline_power (W): 0.0844643
+ bitline_power (W): 3.37449
+Result Bus Power Consumption: 9.01293  (8.33%)
+Total Clock Power: 30.4863  (28.2%)
+Int ALU Power: 4.66013  (4.31%)
+FP ALU Power: 14.281  (13.2%)
+Instruction Cache Power Consumption: 3.97049  (3.67%)
+ decode_power (W): 1.67268
+ wordline_power (W): 0.028656
+ bitline_power (W): 1.5122
+ senseamp_power (W): 0.096
+ tagarray_power (W): 0.660946
+Itlb_power (W): 0.263317 (0.243%)
+Data Cache Power Consumption: 8.34726  (7.72%)
+ decode_power (W): 1.44978
+ wordline_power (W): 0.196735
+ bitline_power (W): 4.58765
+ senseamp_power (W): 0.768
+ tagarray_power (W): 1.34509
+Dtlb_power (W): 0.900515 (0.833%)
+Level 2 Cache Power Consumption: 5.20014 (4.81%)
+ decode_power (W): 0.41817
+ wordline_power (W): 0.0430878
+ bitline_power (W): 3.0244
+ senseamp_power (W): 0.192
+ tagarray_power (W): 1.52247
+sim-main: initalizing context 0:bwavesNS.1.arg
+args: 0:./bwaves.base.alpha 
+sim: loading binary...
+sim: loading ./bwaves.base.alpha
+sim-main: initalizing context 1:h264refNS.1.arg
+args: 0:./h264ref.base.alpha 1:-d 2:./foreman_ref_encoder_baseline.cfg 
+sim: loading binary...
+sim: loading ./h264ref.base.alpha
+warning: section `.comment' ignored...
+sim-main: initalizing context 2:gccNS.1.arg
+args: 0:./gcc.base.alpha 1:./166.i 2:-o 3:./166.s 
+sim: loading binary...
+sim: loading ./gcc.base.alpha
+warning: section `.comment' ignored...
+sim-main: initalizing context 3:bzip2NS.1.arg
+args: 0:./bzip2.base.alpha 1:./input.source 2:280 
+sim: loading binary...
+sim: loading ./bzip2.base.alpha
+sim: command line: ../m-sim_v2.0/sim-outorder bwavesNS.1.arg h264refNS.1.arg gccNS.1.arg bzip2NS.1.arg 
+
+sim: simulation started @ Mon Aug  8 22:34:22 2022, options follow:
+
+sim-outorder: This simulator implements a very detailed out-of-order issue
+superscalar processor with a two-level memory system and speculative
+execution support.  This simulator is a performance simulator, tracking the
+latency of all pipeline operations.
+
+# -config                     # load configuration from a file
+# -dumpconfig                 # dump configuration to a file
+# -h                    false # print help message    
+# -v                    false # verbose operation     
+# -d                    false # enable debug message  
+# -i                    false # start in Dlite debugger
+-seed                       1 # random number generator seed (0 for timer seed)
+# -q                    false # initialize and terminate immediately
+# -redir:sim           <null> # redirect simulator output to file (non-interactive only)
+# -redir:prog          <null> # redirect simulated program output to file
+-nice                       0 # simulator scheduling priority
+-max:inst           250000000 # maximum number of inst's to execute
+-fastfwd             10000000 # number of insts skipped before timing starts
+# -ptrace              <null> # generate pipetrace, i.e., <fname|stdout|stderr> <range>
+-fetch:speed                1 # speed of front-end of machine relative to execution core
+-bpred                  bimod # branch predictor type {nottaken|taken|perfect|bimod|2lev|comb}
+-bpred:bimod     2048 # bimodal predictor config (<table size>)
+-bpred:2lev      1 1024 8 0 # 2-level predictor config (<l1size> <l2size> <hist_size> <xor>)
+-bpred:comb      1024 # combining predictor config (<meta_table_size>)
+-bpred:ras                  8 # return address stack size (0 for no return stack)
+-bpred:btb       512 4 # BTB config (<num_sets> <associativity>)
+# -bpred:spec_update       <null> # speculative predictors update in {ID|WB} (default non-spec)
+-cpred                  bimod # cache load-latency predictor type {nottaken|taken|perfect|bimod|2lev|comb}
+-cpred:bimod     2048 # cache load-latency bimodal predictor config (<table size>)
+-cpred:2lev      1 1024 8 0 # cache load-latency 2-level predictor config (<l1size> <l2size> <hist_size> <xor>)
+-cpred:comb      1024 # cache load-latency combining predictor config (<meta_table_size>)
+-cpred:ras                  0 # return address stack size (0 for no return stack)
+-cpred:btb       512 4 # cache load-latency BTB config (<num_sets> <associativity>)
+-decode:width               4 # instruction decode B/W (insts/cycle)
+-issue:width                4 # instruction issue B/W (insts/cycle)
+-issue:inorder          false # run pipeline with in-order issue
+-issue:wrongpath         true # issue instructions down wrong execution paths
+-commit:width               4 # instruction commit B/W (insts/cycle)
+-rob:size                 224 # reorder buffer (ROB) size
+-fetch:policy |icount|round_robin|       icount # fetch policy          
+-recovery:model        squash # Alpha squash recovery or perfect predition: |squash|perfect|
+-iq:size                   96 # issue queue (IQ) size 
+-iq:issue_exec_delay            1 # minimum cycles between issue and execution
+-fetch_rename_delay            4 # number of cycles between fetch and rename stages
+-rename_dispatch_delay            1 # number cycles between rename and dispatch stages
+-rf:size                  256 # register file (RF) size for each the INT and FP physical register file)
+-lsq:size                 128 # load/store queue (LSQ) size
+-cache:dl1       dl1:256:32:4:l # l1 data cache config, i.e., {<config>|none}
+-cache:dl1lat               1 # l1 data cache hit latency (in cycles)
+-cache:dl2       ul2:1024:64:8:l # l2 data cache config, i.e., {<config>|none}
+-cache:dl2lat               6 # l2 data cache hit latency (in cycles)
+-cache:il1       il1:512:32:2:l # l1 inst cache config, i.e., {<config>|dl1|dl2|none}
+-cache:il1lat               1 # l1 instruction cache hit latency (in cycles)
+-cache:il2                dl2 # l2 instruction cache config, i.e., {<config>|dl2|none}
+-cache:il2lat               6 # l2 instruction cache hit latency (in cycles)
+-cache:flush            false # flush caches on system calls
+-cache:icompress        false # convert 64-bit inst addresses to 32-bit inst equivalents
+-mem:lat         100 2 # memory access latency (<first_chunk> <inter_chunk>)
+-mem:width                  8 # memory access bus width (in bytes)
+-tlb:itlb        itlb:16:4096:4:l # instruction TLB config, i.e., {<config>|none}
+-tlb:dtlb        dtlb:32:4096:4:l # data TLB config, i.e., {<config>|none}
+-tlb:lat                   30 # inst/data TLB miss latency (in cycles)
+-res:ialu                   4 # total number of integer ALU's available
+-res:imult                  1 # total number of integer multiplier/dividers available
+-res:memport                2 # total number of memory system ports available (to CPU)
+-res:fpalu                  4 # total number of floating point ALU's available
+-res:fpmult                 1 # total number of floating point multiplier/dividers available
+# -pcstat              <null> # profile stat(s) against text addr's (mult uses ok)
+-power:print_stats         true # print power statistics collected by wattch?
+
+  Pipetrace range arguments are formatted as follows:
+
+    {{@|#}<start>}:{{@|#|+}<end>}
+
+  Both ends of the range are optional, if neither are specified, the entire
+  execution is traced.  Ranges that start with a `@' designate an address
+  range to be traced, those that start with an `#' designate a cycle count
+  range.  All other range values represent an instruction count range.  The
+  second argument, if specified with a `+', indicates a value relative
+  to the first argument, e.g., 1000:+100 == 1000:1100.  Program symbols may
+  be used in all contexts.
+
+    Examples:   -ptrace FOO.trc #0:#1000
+                -ptrace BAR.trc @2000:
+                -ptrace BLAH.trc :1500
+                -ptrace UXXE.trc :
+                -ptrace FOOBAR.trc @main:+278
+
+  Branch predictor configuration examples for 2-level predictor:
+    Configurations:   N, M, W, X
+      N   # entries in first level (# of shift register(s))
+      W   width of shift register(s)
+      M   # entries in 2nd level (# of counters, or other FSM)
+      X   (yes-1/no-0) xor history and address for 2nd level index
+    Sample predictors:
+      GAg     : 1, W, 2^W, 0
+      GAp     : 1, W, M (M > 2^W), 0
+      PAg     : N, W, 2^W, 0
+      PAp     : N, W, M (M == 2^(N+W)), 0
+      gshare  : 1, W, 2^W, 1
+  Predictor `comb' combines a bimodal and a 2-level predictor.
+
+  The cache config parameter <config> has the following format:
+
+    <name>:<nsets>:<bsize>:<assoc>:<repl>
+
+    <name>   - name of the cache being defined
+    <nsets>  - number of sets in the cache
+    <bsize>  - block size of the cache
+    <assoc>  - associativity of the cache
+    <repl>   - block replacement strategy, 'l'-LRU, 'f'-FIFO, 'r'-random
+
+    Examples:   -cache:dl1 dl1:4096:32:1:l
+                -dtlb dtlb:128:4096:32:r
+
+  Cache levels can be unified by pointing a level of the instruction cache
+  hierarchy at the data cache hiearchy using the "dl1" and "dl2" cache
+  configuration arguments.  Most sensible combinations are supported, e.g.,
+
+    A unified l2 cache (il2 is pointed at dl2):
+      -cache:il1 il1:128:64:1:l -cache:il2 dl2
+      -cache:dl1 dl1:256:32:1:l -cache:dl2 ul2:1024:64:2:l
+
+    Or, a fully unified cache hierarchy (il1 pointed at dl1):
+      -cache:il1 dl1
+      -cache:dl1 ul1:256:32:1:l -cache:dl2 ul2:1024:64:2:l
+
+
+
+sim: ** fast forwarding insts **
+warning: partially supported sigaction() call...
+warning: unsupported ioctl call: ioctl(536900702, ...)
+sim: ** starting performance simulation **
+EPOCH STARTS
+TH0 ROB: 39 LSQ: 16 IQ: 35 IPC: 0.7308
+TH1 ROB: 37 LSQ: 23 IQ: 22, IPC: 0.6177
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4797
+TH3 ROB: 104 LSQ: 76 IQ: 39, IPC: 0.8263
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 25 LSQ: 10 IQ: 20 IPC: 0.7169
+TH1 ROB: 31 LSQ: 11 IQ: 29, IPC: 0.6257
+TH2 ROB: 23 LSQ: 3 IQ: 19, IPC: 0.4978
+TH3 ROB: 99 LSQ: 72 IQ: 28, IPC: 0.8209
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 11 LSQ: 3 IQ: 7 IPC: 0.7258
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5758
+TH2 ROB: 44 LSQ: 5 IQ: 43, IPC: 0.5056
+TH3 ROB: 132 LSQ: 95 IQ: 25, IPC: 0.8295
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 4 IQ: 21 IPC: 0.7218
+TH1 ROB: 37 LSQ: 13 IQ: 27, IPC: 0.5778
+TH2 ROB: 19 LSQ: 6 IQ: 15, IPC: 0.5142
+TH3 ROB: 134 LSQ: 95 IQ: 33, IPC: 0.8309
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 0 LSQ: 0 IQ: 0 IPC: 0.7201
+TH1 ROB: 32 LSQ: 11 IQ: 29, IPC: 0.5916
+TH2 ROB: 25 LSQ: 7 IQ: 19, IPC: 0.5035
+TH3 ROB: 111 LSQ: 80 IQ: 30, IPC: 0.8314
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 14 IQ: 23 IPC: 0.7218
+TH1 ROB: 30 LSQ: 12 IQ: 24, IPC: 0.5836
+TH2 ROB: 29 LSQ: 8 IQ: 25, IPC: 0.5033
+TH3 ROB: 121 LSQ: 88 IQ: 19, IPC: 0.8345
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 53 LSQ: 24 IQ: 27 IPC: 0.7155
+TH1 ROB: 4 LSQ: 0 IQ: 0, IPC: 0.5944
+TH2 ROB: 42 LSQ: 15 IQ: 34, IPC: 0.5028
+TH3 ROB: 137 LSQ: 98 IQ: 35, IPC: 0.8331
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 20 LSQ: 8 IQ: 16 IPC: 0.7140
+TH1 ROB: 32 LSQ: 9 IQ: 27, IPC: 0.5966
+TH2 ROB: 21 LSQ: 9 IQ: 19, IPC: 0.5064
+TH3 ROB: 119 LSQ: 86 IQ: 28, IPC: 0.8324
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 22 LSQ: 9 IQ: 22 IPC: 0.7131
+TH1 ROB: 23 LSQ: 7 IQ: 16, IPC: 0.5998
+TH2 ROB: 20 LSQ: 10 IQ: 16, IPC: 0.5050
+TH3 ROB: 118 LSQ: 85 IQ: 24, IPC: 0.8336
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 29 LSQ: 13 IQ: 26 IPC: 0.7161
+TH1 ROB: 30 LSQ: 8 IQ: 27, IPC: 0.5873
+TH2 ROB: 25 LSQ: 3 IQ: 21, IPC: 0.5057
+TH3 ROB: 122 LSQ: 88 IQ: 19, IPC: 0.8371
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 22 LSQ: 6 IQ: 22 IPC: 0.7156
+TH1 ROB: 18 LSQ: 3 IQ: 15, IPC: 0.5941
+TH2 ROB: 22 LSQ: 8 IQ: 18, IPC: 0.5037
+TH3 ROB: 111 LSQ: 80 IQ: 17, IPC: 0.8359
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 39 LSQ: 10 IQ: 16 IPC: 0.7141
+TH1 ROB: 31 LSQ: 11 IQ: 22, IPC: 0.6011
+TH2 ROB: 33 LSQ: 11 IQ: 33, IPC: 0.5005
+TH3 ROB: 111 LSQ: 80 IQ: 25, IPC: 0.8354
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 36 LSQ: 16 IQ: 32 IPC: 0.7134
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.6011
+TH2 ROB: 36 LSQ: 9 IQ: 36, IPC: 0.5012
+TH3 ROB: 112 LSQ: 81 IQ: 28, IPC: 0.8314
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 16 IQ: 26 IPC: 0.7147
+TH1 ROB: 48 LSQ: 25 IQ: 39, IPC: 0.5907
+TH2 ROB: 13 LSQ: 1 IQ: 9, IPC: 0.4997
+TH3 ROB: 85 LSQ: 61 IQ: 22, IPC: 0.8330
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 27 LSQ: 9 IQ: 23 IPC: 0.7137
+TH1 ROB: 26 LSQ: 5 IQ: 20, IPC: 0.5957
+TH2 ROB: 34 LSQ: 6 IQ: 30, IPC: 0.4981
+TH3 ROB: 116 LSQ: 85 IQ: 23, IPC: 0.8328
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 40 LSQ: 16 IQ: 34 IPC: 0.7121
+TH1 ROB: 21 LSQ: 10 IQ: 17, IPC: 0.5982
+TH2 ROB: 30 LSQ: 9 IQ: 20, IPC: 0.4997
+TH3 ROB: 87 LSQ: 62 IQ: 25, IPC: 0.8324
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 31 LSQ: 8 IQ: 26 IPC: 0.7123
+TH1 ROB: 37 LSQ: 13 IQ: 35, IPC: 0.5955
+TH2 ROB: 13 LSQ: 5 IQ: 9, IPC: 0.5014
+TH3 ROB: 96 LSQ: 70 IQ: 26, IPC: 0.8324
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 4 LSQ: 3 IQ: 0 IPC: 0.7149
+TH1 ROB: 35 LSQ: 21 IQ: 33, IPC: 0.5922
+TH2 ROB: 27 LSQ: 3 IQ: 23, IPC: 0.4995
+TH3 ROB: 81 LSQ: 58 IQ: 34, IPC: 0.8339
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 21 LSQ: 8 IQ: 17 IPC: 0.7149
+TH1 ROB: 18 LSQ: 2 IQ: 13, IPC: 0.5948
+TH2 ROB: 32 LSQ: 6 IQ: 25, IPC: 0.4974
+TH3 ROB: 122 LSQ: 88 IQ: 41, IPC: 0.8342
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 13 IQ: 28 IPC: 0.7157
+TH1 ROB: 26 LSQ: 16 IQ: 22, IPC: 0.5956
+TH2 ROB: 12 LSQ: 0 IQ: 11, IPC: 0.4918
+TH3 ROB: 102 LSQ: 74 IQ: 19, IPC: 0.8362
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 13 IQ: 22 IPC: 0.7163
+TH1 ROB: 37 LSQ: 11 IQ: 29, IPC: 0.5974
+TH2 ROB: 30 LSQ: 6 IQ: 26, IPC: 0.4900
+TH3 ROB: 88 LSQ: 62 IQ: 19, IPC: 0.8361
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 43 LSQ: 11 IQ: 22 IPC: 0.7191
+TH1 ROB: 33 LSQ: 15 IQ: 12, IPC: 0.5885
+TH2 ROB: 23 LSQ: 4 IQ: 20, IPC: 0.4890
+TH3 ROB: 142 LSQ: 103 IQ: 18, IPC: 0.8368
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 31 LSQ: 4 IQ: 27 IPC: 0.7188
+TH1 ROB: 33 LSQ: 13 IQ: 26, IPC: 0.5904
+TH2 ROB: 32 LSQ: 17 IQ: 26, IPC: 0.4865
+TH3 ROB: 85 LSQ: 61 IQ: 17, IPC: 0.8373
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 19 LSQ: 9 IQ: 15 IPC: 0.7173
+TH1 ROB: 51 LSQ: 22 IQ: 47, IPC: 0.5931
+TH2 ROB: 15 LSQ: 6 IQ: 11, IPC: 0.4888
+TH3 ROB: 97 LSQ: 70 IQ: 23, IPC: 0.8361
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 31 LSQ: 9 IQ: 27 IPC: 0.7167
+TH1 ROB: 4 LSQ: 1 IQ: 1, IPC: 0.5942
+TH2 ROB: 116 LSQ: 42 IQ: 39, IPC: 0.4882
+TH3 ROB: 99 LSQ: 72 IQ: 29, IPC: 0.8353
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 4 IQ: 21 IPC: 0.7181
+TH1 ROB: 28 LSQ: 10 IQ: 24, IPC: 0.5890
+TH2 ROB: 31 LSQ: 13 IQ: 26, IPC: 0.4880
+TH3 ROB: 97 LSQ: 70 IQ: 25, IPC: 0.8353
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 6 LSQ: 3 IQ: 3 IPC: 0.7187
+TH1 ROB: 27 LSQ: 12 IQ: 26, IPC: 0.5905
+TH2 ROB: 21 LSQ: 7 IQ: 20, IPC: 0.4842
+TH3 ROB: 105 LSQ: 76 IQ: 18, IPC: 0.8367
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 32 LSQ: 11 IQ: 27 IPC: 0.7190
+TH1 ROB: 19 LSQ: 11 IQ: 15, IPC: 0.5921
+TH2 ROB: 27 LSQ: 14 IQ: 25, IPC: 0.4841
+TH3 ROB: 101 LSQ: 74 IQ: 24, IPC: 0.8364
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 36 LSQ: 15 IQ: 28 IPC: 0.7191
+TH1 ROB: 8 LSQ: 4 IQ: 8, IPC: 0.5925
+TH2 ROB: 37 LSQ: 10 IQ: 32, IPC: 0.4847
+TH3 ROB: 118 LSQ: 85 IQ: 28, IPC: 0.8361
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 29 LSQ: 8 IQ: 22 IPC: 0.7176
+TH1 ROB: 26 LSQ: 8 IQ: 21, IPC: 0.5927
+TH2 ROB: 26 LSQ: 8 IQ: 24, IPC: 0.4887
+TH3 ROB: 107 LSQ: 78 IQ: 27, IPC: 0.8349
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 32 LSQ: 11 IQ: 23 IPC: 0.7191
+TH1 ROB: 16 LSQ: 6 IQ: 16, IPC: 0.5865
+TH2 ROB: 46 LSQ: 21 IQ: 44, IPC: 0.4901
+TH3 ROB: 111 LSQ: 80 IQ: 13, IPC: 0.8356
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 3 LSQ: 3 IQ: 0 IPC: 0.7194
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5871
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4894
+TH3 ROB: 16 LSQ: 11 IQ: 0, IPC: 0.8358
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 19 LSQ: 8 IQ: 9 IPC: 0.7198
+TH1 ROB: 81 LSQ: 29 IQ: 33, IPC: 0.5896
+TH2 ROB: 21 LSQ: 7 IQ: 17, IPC: 0.4858
+TH3 ROB: 104 LSQ: 75 IQ: 37, IPC: 0.8358
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 41 LSQ: 17 IQ: 41 IPC: 0.7194
+TH1 ROB: 23 LSQ: 8 IQ: 19, IPC: 0.5914
+TH2 ROB: 29 LSQ: 4 IQ: 22, IPC: 0.4845
+TH3 ROB: 87 LSQ: 63 IQ: 14, IPC: 0.8360
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 27 LSQ: 10 IQ: 19 IPC: 0.7199
+TH1 ROB: 22 LSQ: 9 IQ: 18, IPC: 0.5897
+TH2 ROB: 27 LSQ: 8 IQ: 27, IPC: 0.4838
+TH3 ROB: 101 LSQ: 72 IQ: 16, IPC: 0.8355
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 12 LSQ: 5 IQ: 12 IPC: 0.7187
+TH1 ROB: 11 LSQ: 3 IQ: 5, IPC: 0.5893
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4887
+TH3 ROB: 120 LSQ: 85 IQ: 12, IPC: 0.8344
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 28 LSQ: 14 IQ: 26 IPC: 0.7185
+TH1 ROB: 23 LSQ: 10 IQ: 19, IPC: 0.5900
+TH2 ROB: 27 LSQ: 7 IQ: 20, IPC: 0.4886
+TH3 ROB: 108 LSQ: 77 IQ: 31, IPC: 0.8344
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 25 LSQ: 11 IQ: 20 IPC: 0.7185
+TH1 ROB: 26 LSQ: 7 IQ: 26, IPC: 0.5902
+TH2 ROB: 31 LSQ: 4 IQ: 31, IPC: 0.4882
+TH3 ROB: 97 LSQ: 70 IQ: 13, IPC: 0.8347
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 32 LSQ: 15 IQ: 31 IPC: 0.7192
+TH1 ROB: 26 LSQ: 4 IQ: 22, IPC: 0.5908
+TH2 ROB: 24 LSQ: 1 IQ: 17, IPC: 0.4864
+TH3 ROB: 128 LSQ: 93 IQ: 26, IPC: 0.8352
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 24 LSQ: 5 IQ: 21 IPC: 0.7202
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5858
+TH2 ROB: 73 LSQ: 23 IQ: 17, IPC: 0.4852
+TH3 ROB: 112 LSQ: 81 IQ: 16, IPC: 0.8352
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 24 LSQ: 5 IQ: 17 IPC: 0.7210
+TH1 ROB: 29 LSQ: 18 IQ: 25, IPC: 0.5854
+TH2 ROB: 34 LSQ: 6 IQ: 24, IPC: 0.4848
+TH3 ROB: 122 LSQ: 88 IQ: 30, IPC: 0.8356
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 19 LSQ: 8 IQ: 15 IPC: 0.7200
+TH1 ROB: 13 LSQ: 0 IQ: 7, IPC: 0.5851
+TH2 ROB: 53 LSQ: 8 IQ: 44, IPC: 0.4884
+TH3 ROB: 80 LSQ: 57 IQ: 30, IPC: 0.8350
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 34 LSQ: 7 IQ: 29 IPC: 0.7203
+TH1 ROB: 32 LSQ: 10 IQ: 29, IPC: 0.5858
+TH2 ROB: 8 LSQ: 5 IQ: 6, IPC: 0.4882
+TH3 ROB: 128 LSQ: 92 IQ: 26, IPC: 0.8350
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 16 LSQ: 5 IQ: 11 IPC: 0.7205
+TH1 ROB: 54 LSQ: 22 IQ: 50, IPC: 0.5862
+TH2 ROB: 14 LSQ: 9 IQ: 10, IPC: 0.4880
+TH3 ROB: 108 LSQ: 77 IQ: 25, IPC: 0.8352
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 16 LSQ: 6 IQ: 12 IPC: 0.7213
+TH1 ROB: 5 LSQ: 3 IQ: 4, IPC: 0.5853
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4873
+TH3 ROB: 134 LSQ: 95 IQ: 18, IPC: 0.8360
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 3 LSQ: 0 IQ: 0 IPC: 0.7227
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5815
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4875
+TH3 ROB: 36 LSQ: 25 IQ: 0, IPC: 0.8369
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 4 LSQ: 0 IQ: 0 IPC: 0.7229
+TH1 ROB: 26 LSQ: 11 IQ: 13, IPC: 0.5815
+TH2 ROB: 80 LSQ: 16 IQ: 59, IPC: 0.4866
+TH3 ROB: 100 LSQ: 72 IQ: 24, IPC: 0.8372
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 24 LSQ: 1 IQ: 20 IPC: 0.7232
+TH1 ROB: 22 LSQ: 13 IQ: 18, IPC: 0.5817
+TH2 ROB: 35 LSQ: 6 IQ: 30, IPC: 0.4860
+TH3 ROB: 122 LSQ: 86 IQ: 28, IPC: 0.8373
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 13 IQ: 28 IPC: 0.7231
+TH1 ROB: 3 LSQ: 0 IQ: 0, IPC: 0.5824
+TH2 ROB: 1 LSQ: 0 IQ: 0, IPC: 0.4866
+TH3 ROB: 121 LSQ: 85 IQ: 17, IPC: 0.8371
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 23 LSQ: 10 IQ: 19 IPC: 0.7231
+TH1 ROB: 10 LSQ: 2 IQ: 6, IPC: 0.5822
+TH2 ROB: 26 LSQ: 3 IQ: 22, IPC: 0.4866
+TH3 ROB: 178 LSQ: 128 IQ: 49, IPC: 0.8373
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 10 IQ: 27 IPC: 0.7232
+TH1 ROB: 36 LSQ: 14 IQ: 12, IPC: 0.5826
+TH2 ROB: 33 LSQ: 11 IQ: 28, IPC: 0.4860
+TH3 ROB: 130 LSQ: 93 IQ: 29, IPC: 0.8380
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 31 LSQ: 15 IQ: 28 IPC: 0.7240
+TH1 ROB: 21 LSQ: 7 IQ: 21, IPC: 0.5782
+TH2 ROB: 28 LSQ: 5 IQ: 26, IPC: 0.4850
+TH3 ROB: 121 LSQ: 88 IQ: 21, IPC: 0.8377
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 13 IQ: 24 IPC: 0.7244
+TH1 ROB: 29 LSQ: 8 IQ: 25, IPC: 0.5775
+TH2 ROB: 28 LSQ: 8 IQ: 24, IPC: 0.4851
+TH3 ROB: 106 LSQ: 76 IQ: 23, IPC: 0.8375
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 16 LSQ: 5 IQ: 10 IPC: 0.7244
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5776
+TH2 ROB: 40 LSQ: 3 IQ: 16, IPC: 0.4857
+TH3 ROB: 108 LSQ: 79 IQ: 10, IPC: 0.8373
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 36 LSQ: 12 IQ: 36 IPC: 0.7249
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5713
+TH2 ROB: 30 LSQ: 7 IQ: 29, IPC: 0.4881
+TH3 ROB: 83 LSQ: 59 IQ: 23, IPC: 0.8372
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 44 LSQ: 17 IQ: 38 IPC: 0.7259
+TH1 ROB: 58 LSQ: 19 IQ: 33, IPC: 0.5689
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4882
+TH3 ROB: 115 LSQ: 84 IQ: 25, IPC: 0.8380
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 32 LSQ: 5 IQ: 29 IPC: 0.7256
+TH1 ROB: 29 LSQ: 7 IQ: 25, IPC: 0.5689
+TH2 ROB: 20 LSQ: 9 IQ: 20, IPC: 0.4881
+TH3 ROB: 108 LSQ: 77 IQ: 20, IPC: 0.8380
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 34 LSQ: 16 IQ: 33 IPC: 0.7270
+TH1 ROB: 19 LSQ: 9 IQ: 15, IPC: 0.5661
+TH2 ROB: 38 LSQ: 10 IQ: 34, IPC: 0.4876
+TH3 ROB: 121 LSQ: 88 IQ: 14, IPC: 0.8392
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 28 LSQ: 9 IQ: 24 IPC: 0.7284
+TH1 ROB: 35 LSQ: 29 IQ: 26, IPC: 0.5620
+TH2 ROB: 16 LSQ: 1 IQ: 12, IPC: 0.4878
+TH3 ROB: 96 LSQ: 70 IQ: 34, IPC: 0.8401
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 41 LSQ: 17 IQ: 37 IPC: 0.7278
+TH1 ROB: 22 LSQ: 6 IQ: 15, IPC: 0.5623
+TH2 ROB: 15 LSQ: 0 IQ: 11, IPC: 0.4891
+TH3 ROB: 78 LSQ: 56 IQ: 33, IPC: 0.8399
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 32 LSQ: 13 IQ: 25 IPC: 0.7273
+TH1 ROB: 16 LSQ: 3 IQ: 12, IPC: 0.5627
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4913
+TH3 ROB: 128 LSQ: 93 IQ: 41, IPC: 0.8396
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 15 LSQ: 6 IQ: 11 IPC: 0.7276
+TH1 ROB: 28 LSQ: 12 IQ: 28, IPC: 0.5616
+TH2 ROB: 9 LSQ: 1 IQ: 5, IPC: 0.4912
+TH3 ROB: 135 LSQ: 96 IQ: 52, IPC: 0.8398
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 32 LSQ: 13 IQ: 26 IPC: 0.7271
+TH1 ROB: 7 LSQ: 3 IQ: 4, IPC: 0.5635
+TH2 ROB: 44 LSQ: 4 IQ: 34, IPC: 0.4903
+TH3 ROB: 82 LSQ: 59 IQ: 16, IPC: 0.8397
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 19 LSQ: 8 IQ: 15 IPC: 0.7276
+TH1 ROB: 78 LSQ: 25 IQ: 15, IPC: 0.5626
+TH2 ROB: 36 LSQ: 18 IQ: 32, IPC: 0.4900
+TH3 ROB: 103 LSQ: 75 IQ: 34, IPC: 0.8397
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 12 IQ: 30 IPC: 0.7279
+TH1 ROB: 62 LSQ: 18 IQ: 29, IPC: 0.5610
+TH2 ROB: 7 LSQ: 0 IQ: 5, IPC: 0.4891
+TH3 ROB: 95 LSQ: 69 IQ: 22, IPC: 0.8388
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 39 LSQ: 15 IQ: 35 IPC: 0.7277
+TH1 ROB: 59 LSQ: 29 IQ: 34, IPC: 0.5626
+TH2 ROB: 22 LSQ: 1 IQ: 16, IPC: 0.4884
+TH3 ROB: 75 LSQ: 55 IQ: 11, IPC: 0.8383
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 16 LSQ: 1 IQ: 0 IPC: 0.7279
+TH1 ROB: 1 LSQ: 1 IQ: 0, IPC: 0.5571
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4909
+TH3 ROB: 28 LSQ: 18 IQ: 0, IPC: 0.8381
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 28 LSQ: 11 IQ: 27 IPC: 0.7285
+TH1 ROB: 26 LSQ: 17 IQ: 22, IPC: 0.5548
+TH2 ROB: 23 LSQ: 6 IQ: 21, IPC: 0.4908
+TH3 ROB: 101 LSQ: 72 IQ: 20, IPC: 0.8384
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 25 LSQ: 8 IQ: 21 IPC: 0.7288
+TH1 ROB: 1 LSQ: 0 IQ: 0, IPC: 0.5551
+TH2 ROB: 35 LSQ: 11 IQ: 31, IPC: 0.4901
+TH3 ROB: 102 LSQ: 74 IQ: 13, IPC: 0.8387
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 14 LSQ: 8 IQ: 10 IPC: 0.7288
+TH1 ROB: 60 LSQ: 18 IQ: 56, IPC: 0.5552
+TH2 ROB: 26 LSQ: 4 IQ: 20, IPC: 0.4903
+TH3 ROB: 87 LSQ: 62 IQ: 10, IPC: 0.8389
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 7 LSQ: 0 IQ: 0 IPC: 0.7301
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5509
+TH2 ROB: 8 LSQ: 0 IQ: 8, IPC: 0.4910
+TH3 ROB: 28 LSQ: 21 IQ: 8, IPC: 0.8401
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 3 LSQ: 3 IQ: 1 IPC: 0.7305
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5465
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4918
+TH3 ROB: 50 LSQ: 37 IQ: 0, IPC: 0.8400
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 21 LSQ: 8 IQ: 16 IPC: 0.7311
+TH1 ROB: 27 LSQ: 21 IQ: 23, IPC: 0.5459
+TH2 ROB: 33 LSQ: 14 IQ: 28, IPC: 0.4896
+TH3 ROB: 105 LSQ: 76 IQ: 29, IPC: 0.8407
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 10 IQ: 17 IPC: 0.7309
+TH1 ROB: 4 LSQ: 1 IQ: 4, IPC: 0.5460
+TH2 ROB: 21 LSQ: 5 IQ: 0, IPC: 0.4889
+TH3 ROB: 110 LSQ: 79 IQ: 33, IPC: 0.8402
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 25 LSQ: 9 IQ: 21 IPC: 0.7312
+TH1 ROB: 34 LSQ: 14 IQ: 34, IPC: 0.5465
+TH2 ROB: 22 LSQ: 7 IQ: 18, IPC: 0.4885
+TH3 ROB: 113 LSQ: 82 IQ: 22, IPC: 0.8404
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 3 LSQ: 2 IQ: 3 IPC: 0.7314
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5465
+TH2 ROB: 22 LSQ: 12 IQ: 1, IPC: 0.4877
+TH3 ROB: 54 LSQ: 40 IQ: 1, IPC: 0.8402
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 3 IQ: 18 IPC: 0.7315
+TH1 ROB: 28 LSQ: 8 IQ: 25, IPC: 0.5460
+TH2 ROB: 30 LSQ: 6 IQ: 30, IPC: 0.4875
+TH3 ROB: 142 LSQ: 103 IQ: 23, IPC: 0.8399
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 20 LSQ: 4 IQ: 16 IPC: 0.7315
+TH1 ROB: 39 LSQ: 15 IQ: 34, IPC: 0.5466
+TH2 ROB: 29 LSQ: 5 IQ: 23, IPC: 0.4874
+TH3 ROB: 109 LSQ: 78 IQ: 23, IPC: 0.8400
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 29 LSQ: 12 IQ: 25 IPC: 0.7313
+TH1 ROB: 30 LSQ: 13 IQ: 15, IPC: 0.5470
+TH2 ROB: 28 LSQ: 13 IQ: 28, IPC: 0.4880
+TH3 ROB: 91 LSQ: 65 IQ: 28, IPC: 0.8400
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 28 LSQ: 13 IQ: 24 IPC: 0.7311
+TH1 ROB: 28 LSQ: 10 IQ: 24, IPC: 0.5475
+TH2 ROB: 27 LSQ: 11 IQ: 20, IPC: 0.4881
+TH3 ROB: 122 LSQ: 88 IQ: 28, IPC: 0.8399
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 29 LSQ: 10 IQ: 25 IPC: 0.7311
+TH1 ROB: 27 LSQ: 5 IQ: 23, IPC: 0.5481
+TH2 ROB: 27 LSQ: 6 IQ: 23, IPC: 0.4880
+TH3 ROB: 133 LSQ: 95 IQ: 25, IPC: 0.8400
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 31 LSQ: 11 IQ: 26 IPC: 0.7314
+TH1 ROB: 34 LSQ: 9 IQ: 31, IPC: 0.5466
+TH2 ROB: 28 LSQ: 8 IQ: 22, IPC: 0.4881
+TH3 ROB: 78 LSQ: 55 IQ: 17, IPC: 0.8401
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 6 LSQ: 2 IQ: 2 IPC: 0.7317
+TH1 ROB: 17 LSQ: 9 IQ: 10, IPC: 0.5473
+TH2 ROB: 65 LSQ: 25 IQ: 61, IPC: 0.4869
+TH3 ROB: 84 LSQ: 60 IQ: 23, IPC: 0.8404
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 9 LSQ: 6 IQ: 5 IPC: 0.7315
+TH1 ROB: 29 LSQ: 11 IQ: 27, IPC: 0.5483
+TH2 ROB: 32 LSQ: 7 IQ: 31, IPC: 0.4868
+TH3 ROB: 79 LSQ: 57 IQ: 20, IPC: 0.8403
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 35 LSQ: 15 IQ: 31 IPC: 0.7315
+TH1 ROB: 19 LSQ: 2 IQ: 15, IPC: 0.5493
+TH2 ROB: 32 LSQ: 5 IQ: 18, IPC: 0.4866
+TH3 ROB: 112 LSQ: 81 IQ: 32, IPC: 0.8402
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 32 LSQ: 12 IQ: 24 IPC: 0.7312
+TH1 ROB: 29 LSQ: 11 IQ: 28, IPC: 0.5488
+TH2 ROB: 9 LSQ: 2 IQ: 8, IPC: 0.4870
+TH3 ROB: 141 LSQ: 101 IQ: 14, IPC: 0.8401
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 20 LSQ: 8 IQ: 12 IPC: 0.7313
+TH1 ROB: 59 LSQ: 34 IQ: 36, IPC: 0.5484
+TH2 ROB: 54 LSQ: 8 IQ: 38, IPC: 0.4873
+TH3 ROB: 74 LSQ: 54 IQ: 10, IPC: 0.8402
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 12 IQ: 28 IPC: 0.7311
+TH1 ROB: 22 LSQ: 11 IQ: 22, IPC: 0.5491
+TH2 ROB: 16 LSQ: 5 IQ: 12, IPC: 0.4871
+TH3 ROB: 91 LSQ: 65 IQ: 22, IPC: 0.8401
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 20 LSQ: 4 IQ: 19 IPC: 0.7306
+TH1 ROB: 13 LSQ: 0 IQ: 7, IPC: 0.5497
+TH2 ROB: 18 LSQ: 3 IQ: 18, IPC: 0.4868
+TH3 ROB: 51 LSQ: 37 IQ: 12, IPC: 0.8401
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 12 IQ: 26 IPC: 0.7309
+TH1 ROB: 31 LSQ: 12 IQ: 30, IPC: 0.5503
+TH2 ROB: 9 LSQ: 1 IQ: 5, IPC: 0.4858
+TH3 ROB: 114 LSQ: 83 IQ: 35, IPC: 0.8404
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 43 LSQ: 18 IQ: 43 IPC: 0.7306
+TH1 ROB: 28 LSQ: 10 IQ: 24, IPC: 0.5512
+TH2 ROB: 13 LSQ: 6 IQ: 9, IPC: 0.4859
+TH3 ROB: 105 LSQ: 76 IQ: 20, IPC: 0.8403
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 17 LSQ: 8 IQ: 13 IPC: 0.7304
+TH1 ROB: 27 LSQ: 12 IQ: 23, IPC: 0.5520
+TH2 ROB: 33 LSQ: 4 IQ: 33, IPC: 0.4858
+TH3 ROB: 112 LSQ: 81 IQ: 27, IPC: 0.8402
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 31 LSQ: 15 IQ: 26 IPC: 0.7302
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5518
+TH2 ROB: 28 LSQ: 11 IQ: 28, IPC: 0.4863
+TH3 ROB: 132 LSQ: 95 IQ: 20, IPC: 0.8404
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 49 LSQ: 20 IQ: 34 IPC: 0.7301
+TH1 ROB: 36 LSQ: 10 IQ: 30, IPC: 0.5521
+TH2 ROB: 46 LSQ: 19 IQ: 24, IPC: 0.4863
+TH3 ROB: 93 LSQ: 67 IQ: 8, IPC: 0.8404
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 10 IQ: 28 IPC: 0.7297
+TH1 ROB: 31 LSQ: 8 IQ: 29, IPC: 0.5537
+TH2 ROB: 22 LSQ: 2 IQ: 15, IPC: 0.4860
+TH3 ROB: 103 LSQ: 75 IQ: 24, IPC: 0.8401
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 25 LSQ: 8 IQ: 21 IPC: 0.7291
+TH1 ROB: 21 LSQ: 11 IQ: 17, IPC: 0.5549
+TH2 ROB: 35 LSQ: 4 IQ: 30, IPC: 0.4858
+TH3 ROB: 129 LSQ: 92 IQ: 28, IPC: 0.8402
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 33 LSQ: 16 IQ: 29 IPC: 0.7293
+TH1 ROB: 38 LSQ: 14 IQ: 37, IPC: 0.5537
+TH2 ROB: 43 LSQ: 15 IQ: 22, IPC: 0.4849
+TH3 ROB: 86 LSQ: 60 IQ: 8, IPC: 0.8397
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 37 LSQ: 12 IQ: 31 IPC: 0.7291
+TH1 ROB: 23 LSQ: 12 IQ: 19, IPC: 0.5547
+TH2 ROB: 39 LSQ: 14 IQ: 25, IPC: 0.4847
+TH3 ROB: 91 LSQ: 65 IQ: 21, IPC: 0.8396
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 25 LSQ: 6 IQ: 21 IPC: 0.7290
+TH1 ROB: 39 LSQ: 13 IQ: 29, IPC: 0.5558
+TH2 ROB: 25 LSQ: 8 IQ: 17, IPC: 0.4846
+TH3 ROB: 125 LSQ: 90 IQ: 29, IPC: 0.8395
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 64 LSQ: 18 IQ: 27 IPC: 0.7286
+TH1 ROB: 3 LSQ: 3 IQ: 0, IPC: 0.5563
+TH2 ROB: 70 LSQ: 20 IQ: 17, IPC: 0.4845
+TH3 ROB: 88 LSQ: 62 IQ: 0, IPC: 0.8392
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 12 LSQ: 7 IQ: 8 IPC: 0.7286
+TH1 ROB: 28 LSQ: 9 IQ: 23, IPC: 0.5558
+TH2 ROB: 30 LSQ: 5 IQ: 23, IPC: 0.4846
+TH3 ROB: 94 LSQ: 68 IQ: 42, IPC: 0.8396
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 41 LSQ: 16 IQ: 41 IPC: 0.7285
+TH1 ROB: 20 LSQ: 3 IQ: 15, IPC: 0.5564
+TH2 ROB: 18 LSQ: 3 IQ: 14, IPC: 0.4844
+TH3 ROB: 98 LSQ: 71 IQ: 26, IPC: 0.8397
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 28 LSQ: 15 IQ: 24 IPC: 0.7284
+TH1 ROB: 6 LSQ: 3 IQ: 5, IPC: 0.5569
+TH2 ROB: 27 LSQ: 4 IQ: 23, IPC: 0.4846
+TH3 ROB: 126 LSQ: 90 IQ: 25, IPC: 0.8396
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 34 LSQ: 16 IQ: 32 IPC: 0.7285
+TH1 ROB: 12 LSQ: 7 IQ: 9, IPC: 0.5577
+TH2 ROB: 28 LSQ: 2 IQ: 24, IPC: 0.4834
+TH3 ROB: 95 LSQ: 69 IQ: 25, IPC: 0.8399
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 23 LSQ: 5 IQ: 20 IPC: 0.7288
+TH1 ROB: 16 LSQ: 7 IQ: 16, IPC: 0.5564
+TH2 ROB: 9 LSQ: 4 IQ: 6, IPC: 0.4834
+TH3 ROB: 102 LSQ: 74 IQ: 15, IPC: 0.8399
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 19 LSQ: 9 IQ: 15 IPC: 0.7287
+TH1 ROB: 28 LSQ: 7 IQ: 22, IPC: 0.5572
+TH2 ROB: 39 LSQ: 6 IQ: 31, IPC: 0.4828
+TH3 ROB: 86 LSQ: 62 IQ: 28, IPC: 0.8399
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 38 LSQ: 15 IQ: 38 IPC: 0.7283
+TH1 ROB: 12 LSQ: 5 IQ: 8, IPC: 0.5581
+TH2 ROB: 52 LSQ: 31 IQ: 28, IPC: 0.4829
+TH3 ROB: 108 LSQ: 78 IQ: 20, IPC: 0.8397
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 20 LSQ: 8 IQ: 16 IPC: 0.7280
+TH1 ROB: 19 LSQ: 8 IQ: 15, IPC: 0.5591
+TH2 ROB: 32 LSQ: 5 IQ: 25, IPC: 0.4831
+TH3 ROB: 80 LSQ: 57 IQ: 19, IPC: 0.8395
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 14 IQ: 29 IPC: 0.7282
+TH1 ROB: 3 LSQ: 2 IQ: 0, IPC: 0.5586
+TH2 ROB: 4 LSQ: 3 IQ: 3, IPC: 0.4828
+TH3 ROB: 118 LSQ: 85 IQ: 26, IPC: 0.8395
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 24 LSQ: 8 IQ: 20 IPC: 0.7284
+TH1 ROB: 16 LSQ: 10 IQ: 14, IPC: 0.5589
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4826
+TH3 ROB: 102 LSQ: 74 IQ: 24, IPC: 0.8396
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 41 LSQ: 16 IQ: 40 IPC: 0.7286
+TH1 ROB: 3 LSQ: 2 IQ: 0, IPC: 0.5592
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4820
+TH3 ROB: 106 LSQ: 76 IQ: 33, IPC: 0.8397
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 29 LSQ: 12 IQ: 22 IPC: 0.7285
+TH1 ROB: 37 LSQ: 17 IQ: 37, IPC: 0.5598
+TH2 ROB: 3 LSQ: 0 IQ: 0, IPC: 0.4822
+TH3 ROB: 118 LSQ: 85 IQ: 31, IPC: 0.8396
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 41 LSQ: 17 IQ: 35 IPC: 0.7283
+TH1 ROB: 44 LSQ: 12 IQ: 34, IPC: 0.5603
+TH2 ROB: 10 LSQ: 5 IQ: 6, IPC: 0.4823
+TH3 ROB: 147 LSQ: 107 IQ: 21, IPC: 0.8396
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 24 LSQ: 9 IQ: 23 IPC: 0.7283
+TH1 ROB: 21 LSQ: 3 IQ: 21, IPC: 0.5594
+TH2 ROB: 25 LSQ: 11 IQ: 21, IPC: 0.4824
+TH3 ROB: 126 LSQ: 90 IQ: 21, IPC: 0.8396
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 36 LSQ: 12 IQ: 32 IPC: 0.7283
+TH1 ROB: 34 LSQ: 20 IQ: 25, IPC: 0.5591
+TH2 ROB: 14 LSQ: 1 IQ: 10, IPC: 0.4827
+TH3 ROB: 124 LSQ: 89 IQ: 29, IPC: 0.8397
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 20 LSQ: 4 IQ: 17 IPC: 0.7282
+TH1 ROB: 18 LSQ: 9 IQ: 16, IPC: 0.5600
+TH2 ROB: 26 LSQ: 4 IQ: 22, IPC: 0.4826
+TH3 ROB: 105 LSQ: 76 IQ: 20, IPC: 0.8396
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 45 LSQ: 16 IQ: 44 IPC: 0.7281
+TH1 ROB: 42 LSQ: 14 IQ: 38, IPC: 0.5609
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4825
+TH3 ROB: 94 LSQ: 67 IQ: 14, IPC: 0.8395
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 28 LSQ: 11 IQ: 28 IPC: 0.7282
+TH1 ROB: 26 LSQ: 6 IQ: 24, IPC: 0.5607
+TH2 ROB: 24 LSQ: 3 IQ: 21, IPC: 0.4806
+TH3 ROB: 122 LSQ: 88 IQ: 19, IPC: 0.8392
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 14 IQ: 21 IPC: 0.7283
+TH1 ROB: 20 LSQ: 8 IQ: 16, IPC: 0.5605
+TH2 ROB: 39 LSQ: 8 IQ: 35, IPC: 0.4805
+TH3 ROB: 120 LSQ: 87 IQ: 24, IPC: 0.8394
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 8 IQ: 26 IPC: 0.7281
+TH1 ROB: 25 LSQ: 10 IQ: 20, IPC: 0.5610
+TH2 ROB: 27 LSQ: 10 IQ: 20, IPC: 0.4805
+TH3 ROB: 95 LSQ: 69 IQ: 23, IPC: 0.8392
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 20 LSQ: 8 IQ: 16 IPC: 0.7279
+TH1 ROB: 31 LSQ: 12 IQ: 18, IPC: 0.5613
+TH2 ROB: 28 LSQ: 12 IQ: 27, IPC: 0.4808
+TH3 ROB: 90 LSQ: 64 IQ: 24, IPC: 0.8392
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 8 LSQ: 3 IQ: 6 IPC: 0.7277
+TH1 ROB: 30 LSQ: 12 IQ: 27, IPC: 0.5617
+TH2 ROB: 40 LSQ: 15 IQ: 33, IPC: 0.4812
+TH3 ROB: 122 LSQ: 89 IQ: 26, IPC: 0.8390
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 36 LSQ: 12 IQ: 30 IPC: 0.7278
+TH1 ROB: 37 LSQ: 14 IQ: 31, IPC: 0.5607
+TH2 ROB: 12 LSQ: 8 IQ: 12, IPC: 0.4798
+TH3 ROB: 107 LSQ: 77 IQ: 23, IPC: 0.8387
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 10 LSQ: 3 IQ: 6 IPC: 0.7283
+TH1 ROB: 29 LSQ: 7 IQ: 28, IPC: 0.5609
+TH2 ROB: 25 LSQ: 2 IQ: 18, IPC: 0.4781
+TH3 ROB: 125 LSQ: 90 IQ: 27, IPC: 0.8388
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 8 IQ: 24 IPC: 0.7279
+TH1 ROB: 28 LSQ: 10 IQ: 24, IPC: 0.5609
+TH2 ROB: 48 LSQ: 17 IQ: 37, IPC: 0.4793
+TH3 ROB: 96 LSQ: 70 IQ: 11, IPC: 0.8386
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 40 LSQ: 16 IQ: 38 IPC: 0.7276
+TH1 ROB: 28 LSQ: 8 IQ: 19, IPC: 0.5610
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4805
+TH3 ROB: 149 LSQ: 108 IQ: 39, IPC: 0.8382
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 34 LSQ: 12 IQ: 34 IPC: 0.7276
+TH1 ROB: 33 LSQ: 13 IQ: 29, IPC: 0.5611
+TH2 ROB: 19 LSQ: 10 IQ: 6, IPC: 0.4808
+TH3 ROB: 106 LSQ: 76 IQ: 17, IPC: 0.8381
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 10 IQ: 20 IPC: 0.7278
+TH1 ROB: 29 LSQ: 19 IQ: 25, IPC: 0.5615
+TH2 ROB: 21 LSQ: 17 IQ: 17, IPC: 0.4789
+TH3 ROB: 81 LSQ: 58 IQ: 34, IPC: 0.8385
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 11 IQ: 25 IPC: 0.7274
+TH1 ROB: 23 LSQ: 9 IQ: 19, IPC: 0.5597
+TH2 ROB: 25 LSQ: 4 IQ: 21, IPC: 0.4787
+TH3 ROB: 74 LSQ: 54 IQ: 19, IPC: 0.8371
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 4 LSQ: 3 IQ: 4 IPC: 0.7271
+TH1 ROB: 35 LSQ: 14 IQ: 17, IPC: 0.5592
+TH2 ROB: 28 LSQ: 9 IQ: 21, IPC: 0.4802
+TH3 ROB: 96 LSQ: 70 IQ: 39, IPC: 0.8370
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 3 LSQ: 2 IQ: 0 IPC: 0.7267
+TH1 ROB: 12 LSQ: 3 IQ: 11, IPC: 0.5592
+TH2 ROB: 30 LSQ: 12 IQ: 26, IPC: 0.4816
+TH3 ROB: 89 LSQ: 63 IQ: 27, IPC: 0.8368
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 6 IQ: 24 IPC: 0.7263
+TH1 ROB: 31 LSQ: 12 IQ: 27, IPC: 0.5594
+TH2 ROB: 34 LSQ: 0 IQ: 34, IPC: 0.4830
+TH3 ROB: 95 LSQ: 69 IQ: 11, IPC: 0.8365
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 4 IQ: 30 IPC: 0.7260
+TH1 ROB: 27 LSQ: 15 IQ: 19, IPC: 0.5594
+TH2 ROB: 23 LSQ: 0 IQ: 19, IPC: 0.4842
+TH3 ROB: 70 LSQ: 52 IQ: 28, IPC: 0.8363
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 24 LSQ: 3 IQ: 9 IPC: 0.7256
+TH1 ROB: 20 LSQ: 6 IQ: 18, IPC: 0.5595
+TH2 ROB: 29 LSQ: 12 IQ: 29, IPC: 0.4854
+TH3 ROB: 88 LSQ: 62 IQ: 23, IPC: 0.8361
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 31 LSQ: 14 IQ: 23 IPC: 0.7261
+TH1 ROB: 37 LSQ: 29 IQ: 36, IPC: 0.5591
+TH2 ROB: 25 LSQ: 6 IQ: 21, IPC: 0.4845
+TH3 ROB: 99 LSQ: 72 IQ: 16, IPC: 0.8364
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 21 LSQ: 8 IQ: 17 IPC: 0.7262
+TH1 ROB: 16 LSQ: 8 IQ: 14, IPC: 0.5581
+TH2 ROB: 18 LSQ: 3 IQ: 13, IPC: 0.4843
+TH3 ROB: 66 LSQ: 48 IQ: 20, IPC: 0.8362
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 43 LSQ: 15 IQ: 33 IPC: 0.7261
+TH1 ROB: 33 LSQ: 15 IQ: 18, IPC: 0.5585
+TH2 ROB: 16 LSQ: 3 IQ: 12, IPC: 0.4838
+TH3 ROB: 114 LSQ: 83 IQ: 19, IPC: 0.8361
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 11 IQ: 25 IPC: 0.7263
+TH1 ROB: 18 LSQ: 4 IQ: 16, IPC: 0.5572
+TH2 ROB: 26 LSQ: 6 IQ: 22, IPC: 0.4846
+TH3 ROB: 121 LSQ: 88 IQ: 22, IPC: 0.8363
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 24 LSQ: 4 IQ: 24 IPC: 0.7258
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5547
+TH2 ROB: 12 LSQ: 9 IQ: 8, IPC: 0.4846
+TH3 ROB: 89 LSQ: 63 IQ: 17, IPC: 0.8355
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 28 LSQ: 4 IQ: 28 IPC: 0.7259
+TH1 ROB: 27 LSQ: 14 IQ: 14, IPC: 0.5542
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4850
+TH3 ROB: 144 LSQ: 104 IQ: 24, IPC: 0.8358
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 24 LSQ: 11 IQ: 16 IPC: 0.7257
+TH1 ROB: 35 LSQ: 13 IQ: 31, IPC: 0.5542
+TH2 ROB: 42 LSQ: 10 IQ: 33, IPC: 0.4857
+TH3 ROB: 103 LSQ: 73 IQ: 16, IPC: 0.8356
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 28 LSQ: 10 IQ: 22 IPC: 0.7261
+TH1 ROB: 27 LSQ: 11 IQ: 27, IPC: 0.5531
+TH2 ROB: 86 LSQ: 26 IQ: 25, IPC: 0.4852
+TH3 ROB: 107 LSQ: 77 IQ: 22, IPC: 0.8357
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 12 LSQ: 2 IQ: 4 IPC: 0.7263
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5520
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4832
+TH3 ROB: 42 LSQ: 29 IQ: 4, IPC: 0.8350
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 19 LSQ: 9 IQ: 10 IPC: 0.7267
+TH1 ROB: 38 LSQ: 14 IQ: 35, IPC: 0.5506
+TH2 ROB: 37 LSQ: 7 IQ: 30, IPC: 0.4832
+TH3 ROB: 76 LSQ: 55 IQ: 21, IPC: 0.8352
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 29 LSQ: 6 IQ: 6 IPC: 0.7268
+TH1 ROB: 54 LSQ: 19 IQ: 37, IPC: 0.5504
+TH2 ROB: 38 LSQ: 7 IQ: 34, IPC: 0.4834
+TH3 ROB: 89 LSQ: 63 IQ: 19, IPC: 0.8353
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 24 LSQ: 4 IQ: 21 IPC: 0.7266
+TH1 ROB: 25 LSQ: 10 IQ: 22, IPC: 0.5503
+TH2 ROB: 22 LSQ: 0 IQ: 20, IPC: 0.4842
+TH3 ROB: 107 LSQ: 77 IQ: 17, IPC: 0.8352
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 27 LSQ: 8 IQ: 23 IPC: 0.7268
+TH1 ROB: 13 LSQ: 13 IQ: 11, IPC: 0.5482
+TH2 ROB: 42 LSQ: 12 IQ: 30, IPC: 0.4828
+TH3 ROB: 141 LSQ: 102 IQ: 32, IPC: 0.8346
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 9 IQ: 26 IPC: 0.7272
+TH1 ROB: 33 LSQ: 5 IQ: 33, IPC: 0.5462
+TH2 ROB: 4 LSQ: 1 IQ: 4, IPC: 0.4829
+TH3 ROB: 101 LSQ: 74 IQ: 17, IPC: 0.8348
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 5 LSQ: 2 IQ: 0 IPC: 0.7272
+TH1 ROB: 4 LSQ: 1 IQ: 2, IPC: 0.5453
+TH2 ROB: 137 LSQ: 57 IQ: 15, IPC: 0.4823
+TH3 ROB: 98 LSQ: 71 IQ: 0, IPC: 0.8342
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 41 LSQ: 17 IQ: 41 IPC: 0.7272
+TH1 ROB: 20 LSQ: 13 IQ: 16, IPC: 0.5459
+TH2 ROB: 15 LSQ: 6 IQ: 11, IPC: 0.4812
+TH3 ROB: 96 LSQ: 70 IQ: 28, IPC: 0.8343
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 0 LSQ: 0 IQ: 0 IPC: 0.7271
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5461
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4816
+TH3 ROB: 15 LSQ: 11 IQ: 0, IPC: 0.8344
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 0 LSQ: 0 IQ: 0 IPC: 0.7274
+TH1 ROB: 28 LSQ: 9 IQ: 28, IPC: 0.5461
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4802
+TH3 ROB: 116 LSQ: 85 IQ: 18, IPC: 0.8346
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 32 LSQ: 7 IQ: 15 IPC: 0.7275
+TH1 ROB: 64 LSQ: 19 IQ: 45, IPC: 0.5469
+TH2 ROB: 28 LSQ: 7 IQ: 22, IPC: 0.4792
+TH3 ROB: 110 LSQ: 79 IQ: 4, IPC: 0.8348
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 20 LSQ: 8 IQ: 14 IPC: 0.7276
+TH1 ROB: 25 LSQ: 11 IQ: 21, IPC: 0.5457
+TH2 ROB: 19 LSQ: 7 IQ: 19, IPC: 0.4783
+TH3 ROB: 137 LSQ: 98 IQ: 42, IPC: 0.8344
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 55 LSQ: 13 IQ: 28 IPC: 0.7275
+TH1 ROB: 38 LSQ: 13 IQ: 33, IPC: 0.5459
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4787
+TH3 ROB: 138 LSQ: 99 IQ: 35, IPC: 0.8344
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 9 LSQ: 2 IQ: 2 IPC: 0.7274
+TH1 ROB: 8 LSQ: 2 IQ: 8, IPC: 0.5458
+TH2 ROB: 16 LSQ: 6 IQ: 8, IPC: 0.4786
+TH3 ROB: 21 LSQ: 16 IQ: 7, IPC: 0.8341
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 25 LSQ: 13 IQ: 20 IPC: 0.7275
+TH1 ROB: 29 LSQ: 4 IQ: 27, IPC: 0.5433
+TH2 ROB: 52 LSQ: 13 IQ: 27, IPC: 0.4784
+TH3 ROB: 124 LSQ: 90 IQ: 22, IPC: 0.8335
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 38 LSQ: 16 IQ: 27 IPC: 0.7278
+TH1 ROB: 67 LSQ: 21 IQ: 42, IPC: 0.5433
+TH2 ROB: 10 LSQ: 4 IQ: 6, IPC: 0.4773
+TH3 ROB: 122 LSQ: 88 IQ: 21, IPC: 0.8338
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 16 LSQ: 8 IQ: 12 IPC: 0.7277
+TH1 ROB: 48 LSQ: 9 IQ: 32, IPC: 0.5431
+TH2 ROB: 33 LSQ: 14 IQ: 28, IPC: 0.4781
+TH3 ROB: 101 LSQ: 74 IQ: 24, IPC: 0.8339
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 10 IQ: 22 IPC: 0.7277
+TH1 ROB: 36 LSQ: 22 IQ: 25, IPC: 0.5432
+TH2 ROB: 43 LSQ: 17 IQ: 27, IPC: 0.4779
+TH3 ROB: 81 LSQ: 58 IQ: 22, IPC: 0.8341
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 3 LSQ: 2 IQ: 0 IPC: 0.7279
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5418
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4773
+TH3 ROB: 20 LSQ: 15 IQ: 0, IPC: 0.8338
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 25 LSQ: 4 IQ: 25 IPC: 0.7282
+TH1 ROB: 75 LSQ: 29 IQ: 28, IPC: 0.5396
+TH2 ROB: 20 LSQ: 7 IQ: 16, IPC: 0.4780
+TH3 ROB: 98 LSQ: 70 IQ: 11, IPC: 0.8339
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 37 LSQ: 13 IQ: 31 IPC: 0.7281
+TH1 ROB: 43 LSQ: 18 IQ: 34, IPC: 0.5391
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4779
+TH3 ROB: 121 LSQ: 88 IQ: 31, IPC: 0.8336
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 14 IQ: 21 IPC: 0.7280
+TH1 ROB: 40 LSQ: 9 IQ: 36, IPC: 0.5394
+TH2 ROB: 20 LSQ: 7 IQ: 10, IPC: 0.4774
+TH3 ROB: 127 LSQ: 91 IQ: 29, IPC: 0.8337
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 28 LSQ: 11 IQ: 24 IPC: 0.7281
+TH1 ROB: 29 LSQ: 12 IQ: 25, IPC: 0.5395
+TH2 ROB: 25 LSQ: 10 IQ: 21, IPC: 0.4767
+TH3 ROB: 131 LSQ: 94 IQ: 26, IPC: 0.8339
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 11 IQ: 22 IPC: 0.7278
+TH1 ROB: 40 LSQ: 14 IQ: 38, IPC: 0.5400
+TH2 ROB: 32 LSQ: 14 IQ: 4, IPC: 0.4770
+TH3 ROB: 108 LSQ: 77 IQ: 32, IPC: 0.8338
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 32 LSQ: 16 IQ: 32 IPC: 0.7277
+TH1 ROB: 35 LSQ: 14 IQ: 15, IPC: 0.5409
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4765
+TH3 ROB: 152 LSQ: 110 IQ: 30, IPC: 0.8339
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 12 LSQ: 3 IQ: 8 IPC: 0.7274
+TH1 ROB: 5 LSQ: 4 IQ: 0, IPC: 0.5415
+TH2 ROB: 39 LSQ: 0 IQ: 38, IPC: 0.4768
+TH3 ROB: 102 LSQ: 71 IQ: 26, IPC: 0.8338
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 29 LSQ: 9 IQ: 28 IPC: 0.7274
+TH1 ROB: 29 LSQ: 11 IQ: 27, IPC: 0.5414
+TH2 ROB: 57 LSQ: 21 IQ: 25, IPC: 0.4768
+TH3 ROB: 110 LSQ: 79 IQ: 16, IPC: 0.8338
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 53 LSQ: 14 IQ: 32 IPC: 0.7273
+TH1 ROB: 27 LSQ: 6 IQ: 23, IPC: 0.5419
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4768
+TH3 ROB: 147 LSQ: 107 IQ: 28, IPC: 0.8338
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 34 LSQ: 11 IQ: 30 IPC: 0.7272
+TH1 ROB: 23 LSQ: 6 IQ: 17, IPC: 0.5427
+TH2 ROB: 33 LSQ: 9 IQ: 26, IPC: 0.4767
+TH3 ROB: 95 LSQ: 69 IQ: 23, IPC: 0.8338
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 28 LSQ: 5 IQ: 26 IPC: 0.7272
+TH1 ROB: 28 LSQ: 11 IQ: 20, IPC: 0.5424
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4768
+TH3 ROB: 112 LSQ: 81 IQ: 30, IPC: 0.8338
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 36 LSQ: 16 IQ: 31 IPC: 0.7270
+TH1 ROB: 31 LSQ: 25 IQ: 26, IPC: 0.5430
+TH2 ROB: 5 LSQ: 2 IQ: 5, IPC: 0.4763
+TH3 ROB: 120 LSQ: 87 IQ: 34, IPC: 0.8337
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 38 LSQ: 9 IQ: 38 IPC: 0.7270
+TH1 ROB: 31 LSQ: 6 IQ: 21, IPC: 0.5437
+TH2 ROB: 22 LSQ: 6 IQ: 17, IPC: 0.4759
+TH3 ROB: 98 LSQ: 71 IQ: 20, IPC: 0.8337
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 11 LSQ: 2 IQ: 5 IPC: 0.7269
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5433
+TH2 ROB: 124 LSQ: 49 IQ: 19, IPC: 0.4761
+TH3 ROB: 88 LSQ: 62 IQ: 0, IPC: 0.8337
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 44 LSQ: 17 IQ: 37 IPC: 0.7270
+TH1 ROB: 24 LSQ: 10 IQ: 20, IPC: 0.5433
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4763
+TH3 ROB: 128 LSQ: 91 IQ: 39, IPC: 0.8337
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 9 IQ: 24 IPC: 0.7268
+TH1 ROB: 29 LSQ: 11 IQ: 27, IPC: 0.5435
+TH2 ROB: 16 LSQ: 3 IQ: 12, IPC: 0.4765
+TH3 ROB: 101 LSQ: 74 IQ: 33, IPC: 0.8336
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 19 IQ: 26 IPC: 0.7268
+TH1 ROB: 30 LSQ: 9 IQ: 27, IPC: 0.5439
+TH2 ROB: 25 LSQ: 11 IQ: 16, IPC: 0.4765
+TH3 ROB: 122 LSQ: 88 IQ: 27, IPC: 0.8336
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 12 LSQ: 6 IQ: 5 IPC: 0.7267
+TH1 ROB: 35 LSQ: 13 IQ: 28, IPC: 0.5443
+TH2 ROB: 36 LSQ: 15 IQ: 30, IPC: 0.4764
+TH3 ROB: 110 LSQ: 79 IQ: 33, IPC: 0.8337
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 13 LSQ: 3 IQ: 9 IPC: 0.7265
+TH1 ROB: 1 LSQ: 0 IQ: 1, IPC: 0.5446
+TH2 ROB: 32 LSQ: 11 IQ: 21, IPC: 0.4769
+TH3 ROB: 97 LSQ: 70 IQ: 34, IPC: 0.8338
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 0 LSQ: 0 IQ: 0 IPC: 0.7267
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5434
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4771
+TH3 ROB: 45 LSQ: 32 IQ: 0, IPC: 0.8339
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 40 LSQ: 16 IQ: 33 IPC: 0.7267
+TH1 ROB: 67 LSQ: 43 IQ: 30, IPC: 0.5434
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4767
+TH3 ROB: 177 LSQ: 128 IQ: 33, IPC: 0.8339
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 15 LSQ: 9 IQ: 12 IPC: 0.7267
+TH1 ROB: 16 LSQ: 7 IQ: 10, IPC: 0.5438
+TH2 ROB: 20 LSQ: 8 IQ: 20, IPC: 0.4764
+TH3 ROB: 101 LSQ: 74 IQ: 13, IPC: 0.8340
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 25 LSQ: 9 IQ: 24 IPC: 0.7266
+TH1 ROB: 25 LSQ: 11 IQ: 20, IPC: 0.5439
+TH2 ROB: 26 LSQ: 10 IQ: 25, IPC: 0.4767
+TH3 ROB: 108 LSQ: 77 IQ: 21, IPC: 0.8340
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 31 LSQ: 13 IQ: 30 IPC: 0.7267
+TH1 ROB: 25 LSQ: 9 IQ: 18, IPC: 0.5442
+TH2 ROB: 30 LSQ: 9 IQ: 24, IPC: 0.4766
+TH3 ROB: 105 LSQ: 76 IQ: 24, IPC: 0.8341
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 28 LSQ: 8 IQ: 24 IPC: 0.7268
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5444
+TH2 ROB: 30 LSQ: 8 IQ: 24, IPC: 0.4765
+TH3 ROB: 128 LSQ: 91 IQ: 20, IPC: 0.8343
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 27 LSQ: 10 IQ: 15 IPC: 0.7268
+TH1 ROB: 15 LSQ: 6 IQ: 12, IPC: 0.5432
+TH2 ROB: 30 LSQ: 15 IQ: 30, IPC: 0.4772
+TH3 ROB: 134 LSQ: 95 IQ: 30, IPC: 0.8345
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 54 LSQ: 14 IQ: 27 IPC: 0.7269
+TH1 ROB: 29 LSQ: 10 IQ: 27, IPC: 0.5431
+TH2 ROB: 20 LSQ: 6 IQ: 18, IPC: 0.4768
+TH3 ROB: 90 LSQ: 64 IQ: 21, IPC: 0.8345
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 31 LSQ: 15 IQ: 31 IPC: 0.7271
+TH1 ROB: 6 LSQ: 3 IQ: 3, IPC: 0.5432
+TH2 ROB: 38 LSQ: 15 IQ: 33, IPC: 0.4765
+TH3 ROB: 71 LSQ: 52 IQ: 16, IPC: 0.8346
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 32 LSQ: 11 IQ: 28 IPC: 0.7269
+TH1 ROB: 39 LSQ: 17 IQ: 14, IPC: 0.5434
+TH2 ROB: 32 LSQ: 0 IQ: 27, IPC: 0.4769
+TH3 ROB: 87 LSQ: 62 IQ: 27, IPC: 0.8346
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 40 LSQ: 16 IQ: 36 IPC: 0.7269
+TH1 ROB: 34 LSQ: 13 IQ: 29, IPC: 0.5435
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4771
+TH3 ROB: 124 LSQ: 89 IQ: 31, IPC: 0.8347
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 29 LSQ: 9 IQ: 29 IPC: 0.7269
+TH1 ROB: 25 LSQ: 9 IQ: 24, IPC: 0.5436
+TH2 ROB: 23 LSQ: 8 IQ: 17, IPC: 0.4774
+TH3 ROB: 116 LSQ: 85 IQ: 22, IPC: 0.8347
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 36 LSQ: 12 IQ: 33 IPC: 0.7268
+TH1 ROB: 35 LSQ: 9 IQ: 28, IPC: 0.5434
+TH2 ROB: 29 LSQ: 11 IQ: 27, IPC: 0.4778
+TH3 ROB: 85 LSQ: 61 IQ: 8, IPC: 0.8348
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 3 LSQ: 1 IQ: 0 IPC: 0.7270
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5425
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4774
+TH3 ROB: 62 LSQ: 44 IQ: 0, IPC: 0.8346
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 20 LSQ: 8 IQ: 16 IPC: 0.7270
+TH1 ROB: 27 LSQ: 9 IQ: 22, IPC: 0.5429
+TH2 ROB: 35 LSQ: 0 IQ: 31, IPC: 0.4775
+TH3 ROB: 116 LSQ: 85 IQ: 27, IPC: 0.8346
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 0 LSQ: 0 IQ: 0 IPC: 0.7271
+TH1 ROB: 7 LSQ: 4 IQ: 7, IPC: 0.5432
+TH2 ROB: 20 LSQ: 7 IQ: 16, IPC: 0.4769
+TH3 ROB: 114 LSQ: 80 IQ: 14, IPC: 0.8349
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 16 LSQ: 3 IQ: 5 IPC: 0.7273
+TH1 ROB: 54 LSQ: 9 IQ: 50, IPC: 0.5436
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4763
+TH3 ROB: 138 LSQ: 99 IQ: 41, IPC: 0.8350
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 18 LSQ: 7 IQ: 13 IPC: 0.7272
+TH1 ROB: 65 LSQ: 22 IQ: 55, IPC: 0.5438
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4763
+TH3 ROB: 128 LSQ: 91 IQ: 28, IPC: 0.8351
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 29 LSQ: 14 IQ: 25 IPC: 0.7272
+TH1 ROB: 56 LSQ: 18 IQ: 29, IPC: 0.5437
+TH2 ROB: 35 LSQ: 17 IQ: 33, IPC: 0.4764
+TH3 ROB: 104 LSQ: 75 IQ: 9, IPC: 0.8350
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 36 LSQ: 9 IQ: 32 IPC: 0.7273
+TH1 ROB: 39 LSQ: 12 IQ: 34, IPC: 0.5430
+TH2 ROB: 21 LSQ: 12 IQ: 10, IPC: 0.4769
+TH3 ROB: 110 LSQ: 79 IQ: 20, IPC: 0.8352
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 39 LSQ: 15 IQ: 39 IPC: 0.7272
+TH1 ROB: 31 LSQ: 11 IQ: 29, IPC: 0.5431
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4774
+TH3 ROB: 124 LSQ: 89 IQ: 28, IPC: 0.8351
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 21 LSQ: 8 IQ: 14 IPC: 0.7271
+TH1 ROB: 28 LSQ: 5 IQ: 24, IPC: 0.5434
+TH2 ROB: 28 LSQ: 7 IQ: 26, IPC: 0.4779
+TH3 ROB: 96 LSQ: 68 IQ: 18, IPC: 0.8350
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 2 IQ: 22 IPC: 0.7269
+TH1 ROB: 22 LSQ: 13 IQ: 18, IPC: 0.5436
+TH2 ROB: 24 LSQ: 9 IQ: 19, IPC: 0.4785
+TH3 ROB: 105 LSQ: 78 IQ: 25, IPC: 0.8350
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 17 LSQ: 8 IQ: 13 IPC: 0.7268
+TH1 ROB: 50 LSQ: 20 IQ: 33, IPC: 0.5437
+TH2 ROB: 32 LSQ: 8 IQ: 25, IPC: 0.4791
+TH3 ROB: 102 LSQ: 72 IQ: 25, IPC: 0.8349
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 27 LSQ: 8 IQ: 21 IPC: 0.7267
+TH1 ROB: 27 LSQ: 7 IQ: 26, IPC: 0.5439
+TH2 ROB: 2 LSQ: 1 IQ: 0, IPC: 0.4798
+TH3 ROB: 123 LSQ: 89 IQ: 25, IPC: 0.8347
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 44 LSQ: 20 IQ: 44 IPC: 0.7266
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5432
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4796
+TH3 ROB: 154 LSQ: 110 IQ: 33, IPC: 0.8343
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 8 IQ: 22 IPC: 0.7264
+TH1 ROB: 31 LSQ: 12 IQ: 24, IPC: 0.5430
+TH2 ROB: 30 LSQ: 14 IQ: 25, IPC: 0.4803
+TH3 ROB: 111 LSQ: 80 IQ: 25, IPC: 0.8344
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 24 LSQ: 8 IQ: 16 IPC: 0.7262
+TH1 ROB: 36 LSQ: 14 IQ: 34, IPC: 0.5432
+TH2 ROB: 39 LSQ: 0 IQ: 39, IPC: 0.4808
+TH3 ROB: 73 LSQ: 52 IQ: 7, IPC: 0.8343
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 33 LSQ: 11 IQ: 33 IPC: 0.7261
+TH1 ROB: 32 LSQ: 13 IQ: 20, IPC: 0.5433
+TH2 ROB: 48 LSQ: 25 IQ: 20, IPC: 0.4813
+TH3 ROB: 92 LSQ: 66 IQ: 23, IPC: 0.8343
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 20 LSQ: 8 IQ: 15 IPC: 0.7260
+TH1 ROB: 36 LSQ: 13 IQ: 32, IPC: 0.5434
+TH2 ROB: 33 LSQ: 11 IQ: 23, IPC: 0.4820
+TH3 ROB: 80 LSQ: 57 IQ: 26, IPC: 0.8342
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 0 LSQ: 0 IQ: 0 IPC: 0.7259
+TH1 ROB: 19 LSQ: 5 IQ: 15, IPC: 0.5435
+TH2 ROB: 32 LSQ: 14 IQ: 32, IPC: 0.4825
+TH3 ROB: 107 LSQ: 77 IQ: 24, IPC: 0.8341
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 23 LSQ: 8 IQ: 17 IPC: 0.7259
+TH1 ROB: 8 LSQ: 2 IQ: 8, IPC: 0.5432
+TH2 ROB: 19 LSQ: 4 IQ: 15, IPC: 0.4814
+TH3 ROB: 62 LSQ: 44 IQ: 20, IPC: 0.8337
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 35 LSQ: 16 IQ: 24 IPC: 0.7260
+TH1 ROB: 45 LSQ: 29 IQ: 45, IPC: 0.5425
+TH2 ROB: 27 LSQ: 10 IQ: 23, IPC: 0.4817
+TH3 ROB: 99 LSQ: 72 IQ: 4, IPC: 0.8337
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 18 LSQ: 2 IQ: 12 IPC: 0.7260
+TH1 ROB: 19 LSQ: 11 IQ: 19, IPC: 0.5429
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4816
+TH3 ROB: 96 LSQ: 70 IQ: 10, IPC: 0.8338
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 33 LSQ: 11 IQ: 27 IPC: 0.7261
+TH1 ROB: 14 LSQ: 6 IQ: 10, IPC: 0.5431
+TH2 ROB: 43 LSQ: 4 IQ: 39, IPC: 0.4813
+TH3 ROB: 118 LSQ: 85 IQ: 20, IPC: 0.8339
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 45 LSQ: 20 IQ: 45 IPC: 0.7260
+TH1 ROB: 35 LSQ: 13 IQ: 30, IPC: 0.5432
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4818
+TH3 ROB: 82 LSQ: 58 IQ: 21, IPC: 0.8337
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 29 LSQ: 13 IQ: 25 IPC: 0.7259
+TH1 ROB: 21 LSQ: 8 IQ: 17, IPC: 0.5433
+TH2 ROB: 36 LSQ: 13 IQ: 31, IPC: 0.4824
+TH3 ROB: 106 LSQ: 76 IQ: 23, IPC: 0.8336
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 42 LSQ: 16 IQ: 41 IPC: 0.7258
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5434
+TH2 ROB: 24 LSQ: 18 IQ: 18, IPC: 0.4827
+TH3 ROB: 96 LSQ: 70 IQ: 37, IPC: 0.8336
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 9 LSQ: 6 IQ: 5 IPC: 0.7259
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5427
+TH2 ROB: 25 LSQ: 3 IQ: 19, IPC: 0.4834
+TH3 ROB: 84 LSQ: 60 IQ: 24, IPC: 0.8336
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 11 IQ: 21 IPC: 0.7257
+TH1 ROB: 32 LSQ: 11 IQ: 29, IPC: 0.5427
+TH2 ROB: 5 LSQ: 1 IQ: 3, IPC: 0.4840
+TH3 ROB: 117 LSQ: 85 IQ: 29, IPC: 0.8335
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 8 LSQ: 0 IQ: 4 IPC: 0.7256
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5429
+TH2 ROB: 26 LSQ: 10 IQ: 15, IPC: 0.4845
+TH3 ROB: 91 LSQ: 65 IQ: 4, IPC: 0.8334
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 4 IQ: 30 IPC: 0.7256
+TH1 ROB: 26 LSQ: 12 IQ: 26, IPC: 0.5430
+TH2 ROB: 24 LSQ: 8 IQ: 19, IPC: 0.4849
+TH3 ROB: 111 LSQ: 80 IQ: 10, IPC: 0.8333
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 24 LSQ: 9 IQ: 18 IPC: 0.7254
+TH1 ROB: 43 LSQ: 21 IQ: 36, IPC: 0.5432
+TH2 ROB: 29 LSQ: 16 IQ: 21, IPC: 0.4853
+TH3 ROB: 106 LSQ: 74 IQ: 21, IPC: 0.8331
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 19 LSQ: 5 IQ: 15 IPC: 0.7254
+TH1 ROB: 25 LSQ: 14 IQ: 20, IPC: 0.5432
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4854
+TH3 ROB: 117 LSQ: 83 IQ: 23, IPC: 0.8332
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 3 LSQ: 0 IQ: 3 IPC: 0.7255
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5427
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4857
+TH3 ROB: 84 LSQ: 60 IQ: 0, IPC: 0.8333
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 32 LSQ: 3 IQ: 25 IPC: 0.7254
+TH1 ROB: 30 LSQ: 11 IQ: 25, IPC: 0.5425
+TH2 ROB: 20 LSQ: 2 IQ: 16, IPC: 0.4863
+TH3 ROB: 118 LSQ: 83 IQ: 30, IPC: 0.8333
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 20 LSQ: 8 IQ: 17 IPC: 0.7252
+TH1 ROB: 16 LSQ: 9 IQ: 12, IPC: 0.5426
+TH2 ROB: 98 LSQ: 34 IQ: 19, IPC: 0.4867
+TH3 ROB: 67 LSQ: 49 IQ: 19, IPC: 0.8331
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 10 LSQ: 6 IQ: 6 IPC: 0.7251
+TH1 ROB: 47 LSQ: 15 IQ: 42, IPC: 0.5428
+TH2 ROB: 27 LSQ: 12 IQ: 24, IPC: 0.4871
+TH3 ROB: 83 LSQ: 59 IQ: 24, IPC: 0.8330
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 31 LSQ: 15 IQ: 28 IPC: 0.7250
+TH1 ROB: 6 LSQ: 3 IQ: 6, IPC: 0.5429
+TH2 ROB: 39 LSQ: 17 IQ: 35, IPC: 0.4874
+TH3 ROB: 115 LSQ: 84 IQ: 27, IPC: 0.8329
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 15 IQ: 25 IPC: 0.7250
+TH1 ROB: 36 LSQ: 10 IQ: 36, IPC: 0.5430
+TH2 ROB: 20 LSQ: 10 IQ: 13, IPC: 0.4878
+TH3 ROB: 97 LSQ: 70 IQ: 22, IPC: 0.8328
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 38 LSQ: 16 IQ: 29 IPC: 0.7250
+TH1 ROB: 16 LSQ: 5 IQ: 16, IPC: 0.5428
+TH2 ROB: 20 LSQ: 1 IQ: 15, IPC: 0.4878
+TH3 ROB: 114 LSQ: 83 IQ: 36, IPC: 0.8325
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 24 LSQ: 10 IQ: 16 IPC: 0.7250
+TH1 ROB: 33 LSQ: 12 IQ: 27, IPC: 0.5425
+TH2 ROB: 25 LSQ: 7 IQ: 21, IPC: 0.4882
+TH3 ROB: 121 LSQ: 86 IQ: 32, IPC: 0.8325
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 9 IQ: 22 IPC: 0.7248
+TH1 ROB: 31 LSQ: 6 IQ: 16, IPC: 0.5428
+TH2 ROB: 37 LSQ: 16 IQ: 33, IPC: 0.4884
+TH3 ROB: 131 LSQ: 94 IQ: 25, IPC: 0.8324
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 17 LSQ: 1 IQ: 10 IPC: 0.7246
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5431
+TH2 ROB: 21 LSQ: 9 IQ: 21, IPC: 0.4888
+TH3 ROB: 130 LSQ: 93 IQ: 20, IPC: 0.8323
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 43 LSQ: 17 IQ: 40 IPC: 0.7246
+TH1 ROB: 42 LSQ: 32 IQ: 42, IPC: 0.5434
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4886
+TH3 ROB: 96 LSQ: 70 IQ: 14, IPC: 0.8323
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 32 LSQ: 16 IQ: 23 IPC: 0.7246
+TH1 ROB: 49 LSQ: 17 IQ: 35, IPC: 0.5425
+TH2 ROB: 19 LSQ: 9 IQ: 16, IPC: 0.4884
+TH3 ROB: 155 LSQ: 111 IQ: 17, IPC: 0.8321
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 33 LSQ: 5 IQ: 30 IPC: 0.7246
+TH1 ROB: 22 LSQ: 8 IQ: 17, IPC: 0.5426
+TH2 ROB: 26 LSQ: 11 IQ: 19, IPC: 0.4888
+TH3 ROB: 86 LSQ: 62 IQ: 30, IPC: 0.8321
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 5 LSQ: 0 IQ: 0 IPC: 0.7245
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5424
+TH2 ROB: 15 LSQ: 6 IQ: 4, IPC: 0.4892
+TH3 ROB: 80 LSQ: 57 IQ: 4, IPC: 0.8320
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 35 LSQ: 16 IQ: 28 IPC: 0.7247
+TH1 ROB: 35 LSQ: 12 IQ: 33, IPC: 0.5411
+TH2 ROB: 28 LSQ: 10 IQ: 25, IPC: 0.4896
+TH3 ROB: 80 LSQ: 58 IQ: 10, IPC: 0.8322
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 5 LSQ: 0 IQ: 3 IPC: 0.7247
+TH1 ROB: 70 LSQ: 17 IQ: 6, IPC: 0.5408
+TH2 ROB: 82 LSQ: 24 IQ: 52, IPC: 0.4899
+TH3 ROB: 56 LSQ: 41 IQ: 4, IPC: 0.8322
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 31 LSQ: 16 IQ: 25 IPC: 0.7247
+TH1 ROB: 41 LSQ: 14 IQ: 12, IPC: 0.5408
+TH2 ROB: 34 LSQ: 19 IQ: 27, IPC: 0.4902
+TH3 ROB: 121 LSQ: 88 IQ: 32, IPC: 0.8322
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 0 LSQ: 0 IQ: 0 IPC: 0.7247
+TH1 ROB: 1 LSQ: 1 IQ: 0, IPC: 0.5403
+TH2 ROB: 70 LSQ: 27 IQ: 59, IPC: 0.4906
+TH3 ROB: 104 LSQ: 75 IQ: 25, IPC: 0.8322
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 35 LSQ: 6 IQ: 35 IPC: 0.7249
+TH1 ROB: 30 LSQ: 24 IQ: 22, IPC: 0.5393
+TH2 ROB: 24 LSQ: 5 IQ: 20, IPC: 0.4910
+TH3 ROB: 96 LSQ: 70 IQ: 19, IPC: 0.8324
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 11 IQ: 22 IPC: 0.7248
+TH1 ROB: 74 LSQ: 22 IQ: 41, IPC: 0.5395
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4913
+TH3 ROB: 127 LSQ: 91 IQ: 33, IPC: 0.8324
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 23 LSQ: 9 IQ: 23 IPC: 0.7250
+TH1 ROB: 17 LSQ: 3 IQ: 11, IPC: 0.5401
+TH2 ROB: 23 LSQ: 7 IQ: 21, IPC: 0.4898
+TH3 ROB: 94 LSQ: 67 IQ: 20, IPC: 0.8326
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 8 LSQ: 1 IQ: 1 IPC: 0.7251
+TH1 ROB: 73 LSQ: 32 IQ: 10, IPC: 0.5400
+TH2 ROB: 17 LSQ: 3 IQ: 17, IPC: 0.4892
+TH3 ROB: 66 LSQ: 48 IQ: 14, IPC: 0.8326
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 40 LSQ: 16 IQ: 38 IPC: 0.7252
+TH1 ROB: 24 LSQ: 1 IQ: 20, IPC: 0.5406
+TH2 ROB: 7 LSQ: 3 IQ: 0, IPC: 0.4884
+TH3 ROB: 116 LSQ: 85 IQ: 38, IPC: 0.8328
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 33 LSQ: 5 IQ: 33 IPC: 0.7253
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5401
+TH2 ROB: 4 LSQ: 0 IQ: 0, IPC: 0.4888
+TH3 ROB: 146 LSQ: 106 IQ: 26, IPC: 0.8330
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 39 LSQ: 16 IQ: 35 IPC: 0.7253
+TH1 ROB: 35 LSQ: 12 IQ: 31, IPC: 0.5399
+TH2 ROB: 37 LSQ: 16 IQ: 14, IPC: 0.4893
+TH3 ROB: 106 LSQ: 76 IQ: 16, IPC: 0.8331
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 41 LSQ: 16 IQ: 36 IPC: 0.7252
+TH1 ROB: 16 LSQ: 8 IQ: 0, IPC: 0.5402
+TH2 ROB: 24 LSQ: 4 IQ: 20, IPC: 0.4897
+TH3 ROB: 150 LSQ: 108 IQ: 40, IPC: 0.8329
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 3 LSQ: 0 IQ: 0 IPC: 0.7255
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5388
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4903
+TH3 ROB: 58 LSQ: 42 IQ: 0, IPC: 0.8332
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 10 IQ: 25 IPC: 0.7256
+TH1 ROB: 43 LSQ: 18 IQ: 41, IPC: 0.5384
+TH2 ROB: 16 LSQ: 5 IQ: 11, IPC: 0.4909
+TH3 ROB: 93 LSQ: 67 IQ: 19, IPC: 0.8333
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 27 LSQ: 9 IQ: 22 IPC: 0.7255
+TH1 ROB: 4 LSQ: 3 IQ: 0, IPC: 0.5384
+TH2 ROB: 17 LSQ: 4 IQ: 13, IPC: 0.4912
+TH3 ROB: 107 LSQ: 77 IQ: 28, IPC: 0.8332
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 23 LSQ: 14 IQ: 23 IPC: 0.7255
+TH1 ROB: 35 LSQ: 20 IQ: 15, IPC: 0.5384
+TH2 ROB: 21 LSQ: 11 IQ: 20, IPC: 0.4917
+TH3 ROB: 80 LSQ: 57 IQ: 13, IPC: 0.8332
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 16 LSQ: 4 IQ: 12 IPC: 0.7256
+TH1 ROB: 3 LSQ: 3 IQ: 0, IPC: 0.5376
+TH2 ROB: 34 LSQ: 14 IQ: 34, IPC: 0.4923
+TH3 ROB: 153 LSQ: 110 IQ: 26, IPC: 0.8334
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 24 LSQ: 9 IQ: 20 IPC: 0.7258
+TH1 ROB: 15 LSQ: 7 IQ: 11, IPC: 0.5365
+TH2 ROB: 38 LSQ: 8 IQ: 32, IPC: 0.4929
+TH3 ROB: 137 LSQ: 98 IQ: 33, IPC: 0.8336
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 34 LSQ: 15 IQ: 34 IPC: 0.7258
+TH1 ROB: 4 LSQ: 3 IQ: 0, IPC: 0.5364
+TH2 ROB: 37 LSQ: 10 IQ: 33, IPC: 0.4933
+TH3 ROB: 134 LSQ: 97 IQ: 27, IPC: 0.8336
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 36 LSQ: 5 IQ: 29 IPC: 0.7259
+TH1 ROB: 36 LSQ: 13 IQ: 36, IPC: 0.5366
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4921
+TH3 ROB: 124 LSQ: 89 IQ: 31, IPC: 0.8337
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 57 LSQ: 14 IQ: 33 IPC: 0.7259
+TH1 ROB: 28 LSQ: 13 IQ: 27, IPC: 0.5366
+TH2 ROB: 12 LSQ: 5 IQ: 6, IPC: 0.4917
+TH3 ROB: 86 LSQ: 61 IQ: 23, IPC: 0.8336
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 28 LSQ: 12 IQ: 24 IPC: 0.7256
+TH1 ROB: 33 LSQ: 6 IQ: 32, IPC: 0.5371
+TH2 ROB: 28 LSQ: 0 IQ: 18, IPC: 0.4920
+TH3 ROB: 76 LSQ: 55 IQ: 22, IPC: 0.8334
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 0 LSQ: 0 IQ: 0 IPC: 0.7254
+TH1 ROB: 31 LSQ: 8 IQ: 24, IPC: 0.5376
+TH2 ROB: 30 LSQ: 14 IQ: 22, IPC: 0.4924
+TH3 ROB: 63 LSQ: 45 IQ: 36, IPC: 0.8332
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 31 LSQ: 16 IQ: 27 IPC: 0.7253
+TH1 ROB: 27 LSQ: 7 IQ: 22, IPC: 0.5379
+TH2 ROB: 31 LSQ: 11 IQ: 23, IPC: 0.4926
+TH3 ROB: 136 LSQ: 97 IQ: 24, IPC: 0.8332
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 20 LSQ: 5 IQ: 16 IPC: 0.7252
+TH1 ROB: 48 LSQ: 19 IQ: 37, IPC: 0.5379
+TH2 ROB: 23 LSQ: 13 IQ: 21, IPC: 0.4930
+TH3 ROB: 115 LSQ: 84 IQ: 22, IPC: 0.8331
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 10 LSQ: 4 IQ: 6 IPC: 0.7250
+TH1 ROB: 26 LSQ: 11 IQ: 19, IPC: 0.5385
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4930
+TH3 ROB: 162 LSQ: 118 IQ: 71, IPC: 0.8330
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 31 LSQ: 15 IQ: 26 IPC: 0.7251
+TH1 ROB: 26 LSQ: 6 IQ: 18, IPC: 0.5392
+TH2 ROB: 25 LSQ: 10 IQ: 21, IPC: 0.4918
+TH3 ROB: 118 LSQ: 85 IQ: 31, IPC: 0.8333
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 10 LSQ: 3 IQ: 6 IPC: 0.7252
+TH1 ROB: 46 LSQ: 24 IQ: 31, IPC: 0.5387
+TH2 ROB: 38 LSQ: 12 IQ: 36, IPC: 0.4920
+TH3 ROB: 93 LSQ: 67 IQ: 23, IPC: 0.8335
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 22 LSQ: 4 IQ: 21 IPC: 0.7251
+TH1 ROB: 31 LSQ: 10 IQ: 30, IPC: 0.5390
+TH2 ROB: 22 LSQ: 8 IQ: 22, IPC: 0.4919
+TH3 ROB: 128 LSQ: 91 IQ: 10, IPC: 0.8335
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 38 LSQ: 16 IQ: 33 IPC: 0.7249
+TH1 ROB: 11 LSQ: 10 IQ: 7, IPC: 0.5393
+TH2 ROB: 46 LSQ: 13 IQ: 33, IPC: 0.4920
+TH3 ROB: 95 LSQ: 68 IQ: 23, IPC: 0.8334
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 22 LSQ: 8 IQ: 15 IPC: 0.7250
+TH1 ROB: 26 LSQ: 17 IQ: 22, IPC: 0.5389
+TH2 ROB: 54 LSQ: 23 IQ: 29, IPC: 0.4922
+TH3 ROB: 134 LSQ: 95 IQ: 30, IPC: 0.8335
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 27 LSQ: 12 IQ: 23 IPC: 0.7249
+TH1 ROB: 24 LSQ: 8 IQ: 19, IPC: 0.5391
+TH2 ROB: 33 LSQ: 13 IQ: 29, IPC: 0.4924
+TH3 ROB: 92 LSQ: 66 IQ: 25, IPC: 0.8335
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 32 LSQ: 16 IQ: 26 IPC: 0.7248
+TH1 ROB: 30 LSQ: 15 IQ: 27, IPC: 0.5393
+TH2 ROB: 30 LSQ: 13 IQ: 28, IPC: 0.4926
+TH3 ROB: 101 LSQ: 74 IQ: 13, IPC: 0.8334
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 24 LSQ: 8 IQ: 22 IPC: 0.7248
+TH1 ROB: 31 LSQ: 12 IQ: 30, IPC: 0.5395
+TH2 ROB: 22 LSQ: 5 IQ: 19, IPC: 0.4927
+TH3 ROB: 107 LSQ: 77 IQ: 21, IPC: 0.8334
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 26 LSQ: 14 IQ: 23 IPC: 0.7247
+TH1 ROB: 29 LSQ: 17 IQ: 26, IPC: 0.5397
+TH2 ROB: 28 LSQ: 14 IQ: 24, IPC: 0.4929
+TH3 ROB: 95 LSQ: 69 IQ: 23, IPC: 0.8333
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 16 LSQ: 8 IQ: 8 IPC: 0.7246
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5397
+TH2 ROB: 12 LSQ: 4 IQ: 12, IPC: 0.4931
+TH3 ROB: 108 LSQ: 77 IQ: 14, IPC: 0.8333
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 31 LSQ: 14 IQ: 26 IPC: 0.7247
+TH1 ROB: 37 LSQ: 14 IQ: 35, IPC: 0.5393
+TH2 ROB: 19 LSQ: 10 IQ: 13, IPC: 0.4933
+TH3 ROB: 79 LSQ: 57 IQ: 22, IPC: 0.8334
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 62 LSQ: 16 IQ: 29 IPC: 0.7247
+TH1 ROB: 36 LSQ: 11 IQ: 27, IPC: 0.5395
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4934
+TH3 ROB: 146 LSQ: 106 IQ: 24, IPC: 0.8333
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 15 IQ: 24 IPC: 0.7246
+TH1 ROB: 30 LSQ: 14 IQ: 26, IPC: 0.5397
+TH2 ROB: 41 LSQ: 7 IQ: 4, IPC: 0.4935
+TH3 ROB: 68 LSQ: 49 IQ: 35, IPC: 0.8332
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 14 LSQ: 4 IQ: 8 IPC: 0.7245
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5398
+TH2 ROB: 28 LSQ: 8 IQ: 26, IPC: 0.4936
+TH3 ROB: 116 LSQ: 85 IQ: 33, IPC: 0.8332
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 21 LSQ: 3 IQ: 15 IPC: 0.7246
+TH1 ROB: 39 LSQ: 16 IQ: 29, IPC: 0.5399
+TH2 ROB: 51 LSQ: 22 IQ: 31, IPC: 0.4934
+TH3 ROB: 98 LSQ: 69 IQ: 21, IPC: 0.8332
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 23 LSQ: 8 IQ: 16 IPC: 0.7245
+TH1 ROB: 25 LSQ: 9 IQ: 21, IPC: 0.5401
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4936
+TH3 ROB: 81 LSQ: 58 IQ: 21, IPC: 0.8332
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 18 LSQ: 9 IQ: 16 IPC: 0.7247
+TH1 ROB: 20 LSQ: 11 IQ: 20, IPC: 0.5394
+TH2 ROB: 19 LSQ: 8 IQ: 16, IPC: 0.4939
+TH3 ROB: 111 LSQ: 80 IQ: 17, IPC: 0.8334
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 35 LSQ: 11 IQ: 29 IPC: 0.7247
+TH1 ROB: 49 LSQ: 19 IQ: 24, IPC: 0.5393
+TH2 ROB: 12 LSQ: 5 IQ: 7, IPC: 0.4941
+TH3 ROB: 129 LSQ: 92 IQ: 36, IPC: 0.8333
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 17 LSQ: 6 IQ: 13 IPC: 0.7246
+TH1 ROB: 19 LSQ: 6 IQ: 12, IPC: 0.5395
+TH2 ROB: 61 LSQ: 19 IQ: 55, IPC: 0.4942
+TH3 ROB: 155 LSQ: 111 IQ: 16, IPC: 0.8333
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 28 LSQ: 11 IQ: 24 IPC: 0.7246
+TH1 ROB: 27 LSQ: 10 IQ: 26, IPC: 0.5397
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4943
+TH3 ROB: 120 LSQ: 87 IQ: 20, IPC: 0.8333
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 15 LSQ: 4 IQ: 15 IPC: 0.7246
+TH1 ROB: 9 LSQ: 2 IQ: 6, IPC: 0.5398
+TH2 ROB: 19 LSQ: 9 IQ: 12, IPC: 0.4945
+TH3 ROB: 81 LSQ: 58 IQ: 6, IPC: 0.8333
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 40 LSQ: 17 IQ: 40 IPC: 0.7246
+TH1 ROB: 16 LSQ: 4 IQ: 12, IPC: 0.5400
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4945
+TH3 ROB: 132 LSQ: 95 IQ: 27, IPC: 0.8332
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 10 LSQ: 2 IQ: 8 IPC: 0.7244
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5394
+TH2 ROB: 15 LSQ: 7 IQ: 10, IPC: 0.4935
+TH3 ROB: 114 LSQ: 81 IQ: 16, IPC: 0.8325
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 14 IQ: 25 IPC: 0.7245
+TH1 ROB: 30 LSQ: 11 IQ: 29, IPC: 0.5394
+TH2 ROB: 41 LSQ: 16 IQ: 29, IPC: 0.4931
+TH3 ROB: 117 LSQ: 85 IQ: 13, IPC: 0.8325
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 15 LSQ: 6 IQ: 11 IPC: 0.7245
+TH1 ROB: 35 LSQ: 9 IQ: 28, IPC: 0.5396
+TH2 ROB: 49 LSQ: 5 IQ: 49, IPC: 0.4932
+TH3 ROB: 138 LSQ: 99 IQ: 8, IPC: 0.8325
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 28 LSQ: 15 IQ: 25 IPC: 0.7245
+TH1 ROB: 14 LSQ: 8 IQ: 14, IPC: 0.5397
+TH2 ROB: 26 LSQ: 16 IQ: 26, IPC: 0.4934
+TH3 ROB: 92 LSQ: 66 IQ: 23, IPC: 0.8325
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 22 LSQ: 7 IQ: 16 IPC: 0.7244
+TH1 ROB: 31 LSQ: 14 IQ: 24, IPC: 0.5398
+TH2 ROB: 31 LSQ: 15 IQ: 30, IPC: 0.4935
+TH3 ROB: 78 LSQ: 56 IQ: 26, IPC: 0.8324
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 31 LSQ: 11 IQ: 26 IPC: 0.7244
+TH1 ROB: 24 LSQ: 9 IQ: 20, IPC: 0.5399
+TH2 ROB: 32 LSQ: 14 IQ: 26, IPC: 0.4937
+TH3 ROB: 112 LSQ: 81 IQ: 24, IPC: 0.8325
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 22 LSQ: 10 IQ: 18 IPC: 0.7245
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5396
+TH2 ROB: 39 LSQ: 18 IQ: 23, IPC: 0.4938
+TH3 ROB: 104 LSQ: 75 IQ: 21, IPC: 0.8324
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 27 LSQ: 8 IQ: 23 IPC: 0.7246
+TH1 ROB: 24 LSQ: 8 IQ: 19, IPC: 0.5395
+TH2 ROB: 42 LSQ: 20 IQ: 36, IPC: 0.4937
+TH3 ROB: 102 LSQ: 74 IQ: 18, IPC: 0.8325
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 40 LSQ: 16 IQ: 34 IPC: 0.7245
+TH1 ROB: 33 LSQ: 23 IQ: 29, IPC: 0.5396
+TH2 ROB: 33 LSQ: 14 IQ: 29, IPC: 0.4939
+TH3 ROB: 89 LSQ: 63 IQ: 4, IPC: 0.8325
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 28 LSQ: 11 IQ: 26 IPC: 0.7246
+TH1 ROB: 21 LSQ: 3 IQ: 20, IPC: 0.5399
+TH2 ROB: 26 LSQ: 15 IQ: 20, IPC: 0.4937
+TH3 ROB: 115 LSQ: 84 IQ: 28, IPC: 0.8325
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 17 LSQ: 7 IQ: 13 IPC: 0.7245
+TH1 ROB: 36 LSQ: 14 IQ: 33, IPC: 0.5400
+TH2 ROB: 47 LSQ: 19 IQ: 14, IPC: 0.4939
+TH3 ROB: 117 LSQ: 85 IQ: 36, IPC: 0.8325
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 18 LSQ: 3 IQ: 14 IPC: 0.7245
+TH1 ROB: 30 LSQ: 7 IQ: 26, IPC: 0.5401
+TH2 ROB: 35 LSQ: 17 IQ: 27, IPC: 0.4940
+TH3 ROB: 88 LSQ: 62 IQ: 29, IPC: 0.8325
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 3 LSQ: 0 IQ: 0 IPC: 0.7247
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5402
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4933
+TH3 ROB: 4 LSQ: 4 IQ: 0, IPC: 0.8326
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 23 LSQ: 11 IQ: 18 IPC: 0.7247
+TH1 ROB: 31 LSQ: 11 IQ: 27, IPC: 0.5396
+TH2 ROB: 22 LSQ: 2 IQ: 16, IPC: 0.4931
+TH3 ROB: 107 LSQ: 77 IQ: 35, IPC: 0.8325
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 9 IQ: 23 IPC: 0.7248
+TH1 ROB: 21 LSQ: 6 IQ: 17, IPC: 0.5397
+TH2 ROB: 24 LSQ: 7 IQ: 19, IPC: 0.4925
+TH3 ROB: 105 LSQ: 76 IQ: 37, IPC: 0.8326
+EPOCH ENDS
+EPOCH STARTS
+TH0 ROB: 30 LSQ: 9 IQ: 20 IPC: 0.7249
+TH1 ROB: 31 LSQ: 13 IQ: 30, IPC: 0.5398
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4926
+TH3 ROB: 142 LSQ: 103 IQ: 34, IPC: 0.8326
+EPOCH ENDS
+warning: invalid/unimplemented syscall 224, PC=0x1203dc944, RA=0x12010ef74, winging it
+EPOCH STARTS
+TH0 ROB: 43 LSQ: 18 IQ: 41 IPC: 0.7251
+TH1 ROB: 28 LSQ: 10 IQ: 20, IPC: 0.5402
+TH2 ROB: 26 LSQ: 11 IQ: 13, IPC: 0.4915
+TH3 ROB: 68 LSQ: 50 IQ: 22, IPC: 0.8329
+EPOCH ENDS
+warning: table: unsupported table id 86013 requested, ignored
+warning: invalid/unimplemented syscall 79, PC=0x120410654, RA=0x1204064c4, winging it
+warning: invalid/unimplemented syscall 79, PC=0x120410654, RA=0x1204064e4, winging it
+EPOCH STARTS
+TH0 ROB: 34 LSQ: 13 IQ: 27 IPC: 0.7252
+TH1 ROB: 22 LSQ: 11 IQ: 14, IPC: 0.5404
+TH2 ROB: 24 LSQ: 6 IQ: 20, IPC: 0.4911
+TH3 ROB: 96 LSQ: 70 IQ: 35, IPC: 0.8330
+EPOCH ENDS
+NONE/include: Successful
+EPOCH STARTS
+TH0 ROB: 0 LSQ: 0 IQ: 0 IPC: 0.7255
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5406
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4901
+TH3 ROB: 62 LSQ: 44 IQ: 0, IPC: 0.8331
+EPOCH ENDS
+warning: invalid/unimplemented syscall 224, PC=0x1203dc944, RA=0x12010ef74, winging it
+warning: table: unsupported table id 86013 requested, ignored
+warning: invalid/unimplemented syscall 79, PC=0x120410654, RA=0x1204064c4, winging it
+warning: invalid/unimplemented syscall 79, PC=0x120410654, RA=0x1204064e4, winging it
+EPOCH STARTS
+TH0 ROB: 12 LSQ: 1 IQ: 5 IPC: 0.7255
+TH1 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.5399
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4903
+TH3 ROB: 50 LSQ: 37 IQ: 10, IPC: 0.8330
+EPOCH ENDS
+/usr/include: Successful
+warning: invalid/unimplemented syscall 226, PC=0x1203dc984, RA=0x12010cc28, winging it
+warning: table: unsupported table id 86013 requested, ignored
+warning: invalid/unimplemented syscall 79, PC=0x120410654, RA=0x1204064c4, winging it
+warning: invalid/unimplemented syscall 79, PC=0x120410654, RA=0x1204064e4, winging it
+EPOCH STARTS
+TH0 ROB: 39 LSQ: 15 IQ: 39 IPC: 0.7254
+TH1 ROB: 36 LSQ: 11 IQ: 29, IPC: 0.5396
+TH2 ROB: 18 LSQ: 5 IQ: 12, IPC: 0.4905
+TH3 ROB: 110 LSQ: 78 IQ: 16, IPC: 0.8329
+EPOCH ENDS
+gcc.base.alpha: ./166.i: Successful
+EPOCH STARTS
+TH0 ROB: 36 LSQ: 12 IQ: 36 IPC: 0.7256
+TH1 ROB: 34 LSQ: 15 IQ: 34, IPC: 0.5399
+TH2 ROB: 0 LSQ: 0 IQ: 0, IPC: 0.4896
+TH3 ROB: 128 LSQ: 91 IQ: 21, IPC: 0.8330
+EPOCH ENDS
+warning: partially supported sigprocmask() call...
+
+sim: ** simulation statistics **
+sim_num_insn               19963273 # total number of instructions committed
+sim_num_insn 0              5598429 # total number of instructions committed for this thread
+sim_num_insn 1              4165737 # total number of instructions committed for this thread
+sim_num_insn 2              3771538 # total number of instructions committed for this thread
+sim_num_insn 3              6427330 # total number of instructions committed for this thread
+sim_num_refs                9321437 # total number of loads and stores committed
+sim_num_loads               6039240 # total number of loads committed
+sim_num_stores         3282197.0000 # total number of stores committed
+sim_num_branches            1279092 # total number of branches committed
+sim_elapsed_time                198 # total simulation time in seconds
+sim_inst_rate           100824.6111 # simulation speed (in insts/sec)
+sim_total_insn             23780359 # total number of instructions executed
+sim_total_refs             10698503 # total number of loads and stores executed
+sim_total_loads             6788154 # total number of loads executed
+sim_total_stores       3910349.0000 # total number of stores executed
+sim_total_branches          1667715 # total number of branches executed
+sim_cycle                   7713648 # total simulation time in cycles
+sim_IPC                      2.5880 # instructions per cycle
+sim_CPI                      0.3864 # cycles per instruction
+sim_exec_BW                  3.0829 # total instructions (mis-spec + committed) per cycle
+sim_IPB                     15.6074 # instruction per branch
+sim_slip                 2146099767 # total number of slip cycles
+avg_sim_slip               107.5024 # the average slip between issue and retirement
+Thread_0_bpred_bimod.lookups       223115 # total number of bpred lookups
+Thread_0_bpred_bimod.updates       186533 # total number of updates
+Thread_0_bpred_bimod.addr_hits       150373 # total number of address-predicted hits
+Thread_0_bpred_bimod.dir_hits       150373 # total number of direction-predicted hits (includes addr-hits)
+Thread_0_bpred_bimod.misses        36160 # total number of misses
+Thread_0_bpred_bimod.jr_hits            0 # total number of address-predicted hits for JR's
+Thread_0_bpred_bimod.jr_seen            0 # total number of JR's seen
+Thread_0_bpred_bimod.jr_non_ras_hits.PP          811 # total number of address-predicted hits for non-RAS JR's
+Thread_0_bpred_bimod.jr_non_ras_seen.PP         1071 # total number of non-RAS JR's seen
+Thread_0_bpred_bimod.bpred_addr_rate    0.8061 # branch address-prediction rate (i.e., addr-hits/updates)
+Thread_0_bpred_bimod.bpred_dir_rate    0.8061 # branch direction-prediction rate (i.e., all-hits/updates)
+Thread_0_bpred_bimod.bpred_jr_rate <error: divide by zero> # JR address-prediction rate (i.e., JR addr-hits/JRs seen)
+Thread_0_bpred_bimod.bpred_jr_non_ras_rate.PP    0.7572 # non-RAS JR addr-pred rate (ie, non-RAS JR hits/JRs seen)
+Thread_0_bpred_bimod.retstack_pushes            0 # total number of address pushed onto ret-addr stack
+Thread_0_bpred_bimod.retstack_pops            0 # total number of address popped off of ret-addr stack
+Thread_0_bpred_bimod.used_ras.PP            0 # total number of RAS predictions used
+Thread_0_bpred_bimod.ras_hits.PP            0 # total number of RAS hits
+Thread_0_bpred_bimod.ras_rate.PP <error: divide by zero> # RAS prediction rate (i.e., RAS hits/used RAS)
+Thread_1_bpred_bimod.lookups       590884 # total number of bpred lookups
+Thread_1_bpred_bimod.updates       412102 # total number of updates
+Thread_1_bpred_bimod.addr_hits       361428 # total number of address-predicted hits
+Thread_1_bpred_bimod.dir_hits       366268 # total number of direction-predicted hits (includes addr-hits)
+Thread_1_bpred_bimod.misses        45834 # total number of misses
+Thread_1_bpred_bimod.jr_hits        25960 # total number of address-predicted hits for JR's
+Thread_1_bpred_bimod.jr_seen        30598 # total number of JR's seen
+Thread_1_bpred_bimod.jr_non_ras_hits.PP        13763 # total number of address-predicted hits for non-RAS JR's
+Thread_1_bpred_bimod.jr_non_ras_seen.PP        13973 # total number of non-RAS JR's seen
+Thread_1_bpred_bimod.bpred_addr_rate    0.8770 # branch address-prediction rate (i.e., addr-hits/updates)
+Thread_1_bpred_bimod.bpred_dir_rate    0.8888 # branch direction-prediction rate (i.e., all-hits/updates)
+Thread_1_bpred_bimod.bpred_jr_rate    0.8484 # JR address-prediction rate (i.e., JR addr-hits/JRs seen)
+Thread_1_bpred_bimod.bpred_jr_non_ras_rate.PP    0.9850 # non-RAS JR addr-pred rate (ie, non-RAS JR hits/JRs seen)
+Thread_1_bpred_bimod.retstack_pushes        37957 # total number of address pushed onto ret-addr stack
+Thread_1_bpred_bimod.retstack_pops        45254 # total number of address popped off of ret-addr stack
+Thread_1_bpred_bimod.used_ras.PP        29984 # total number of RAS predictions used
+Thread_1_bpred_bimod.ras_hits.PP        25390 # total number of RAS hits
+Thread_1_bpred_bimod.ras_rate.PP    0.8468 # RAS prediction rate (i.e., RAS hits/used RAS)
+Thread_2_bpred_bimod.lookups       845446 # total number of bpred lookups
+Thread_2_bpred_bimod.updates       540722 # total number of updates
+Thread_2_bpred_bimod.addr_hits       481497 # total number of address-predicted hits
+Thread_2_bpred_bimod.dir_hits       503511 # total number of direction-predicted hits (includes addr-hits)
+Thread_2_bpred_bimod.misses        37211 # total number of misses
+Thread_2_bpred_bimod.jr_hits        51680 # total number of address-predicted hits for JR's
+Thread_2_bpred_bimod.jr_seen        71500 # total number of JR's seen
+Thread_2_bpred_bimod.jr_non_ras_hits.PP        18449 # total number of address-predicted hits for non-RAS JR's
+Thread_2_bpred_bimod.jr_non_ras_seen.PP        30624 # total number of non-RAS JR's seen
+Thread_2_bpred_bimod.bpred_addr_rate    0.8905 # branch address-prediction rate (i.e., addr-hits/updates)
+Thread_2_bpred_bimod.bpred_dir_rate    0.9312 # branch direction-prediction rate (i.e., all-hits/updates)
+Thread_2_bpred_bimod.bpred_jr_rate    0.7228 # JR address-prediction rate (i.e., JR addr-hits/JRs seen)
+Thread_2_bpred_bimod.bpred_jr_non_ras_rate.PP    0.6024 # non-RAS JR addr-pred rate (ie, non-RAS JR hits/JRs seen)
+Thread_2_bpred_bimod.retstack_pushes        75222 # total number of address pushed onto ret-addr stack
+Thread_2_bpred_bimod.retstack_pops        90971 # total number of address popped off of ret-addr stack
+Thread_2_bpred_bimod.used_ras.PP        55817 # total number of RAS predictions used
+Thread_2_bpred_bimod.ras_hits.PP        42073 # total number of RAS hits
+Thread_2_bpred_bimod.ras_rate.PP    0.7538 # RAS prediction rate (i.e., RAS hits/used RAS)
+Thread_3_bpred_bimod.lookups       139729 # total number of bpred lookups
+Thread_3_bpred_bimod.updates       139725 # total number of updates
+Thread_3_bpred_bimod.addr_hits       139725 # total number of address-predicted hits
+Thread_3_bpred_bimod.dir_hits       139725 # total number of direction-predicted hits (includes addr-hits)
+Thread_3_bpred_bimod.misses            0 # total number of misses
+Thread_3_bpred_bimod.jr_hits            0 # total number of address-predicted hits for JR's
+Thread_3_bpred_bimod.jr_seen            0 # total number of JR's seen
+Thread_3_bpred_bimod.jr_non_ras_hits.PP          430 # total number of address-predicted hits for non-RAS JR's
+Thread_3_bpred_bimod.jr_non_ras_seen.PP          482 # total number of non-RAS JR's seen
+Thread_3_bpred_bimod.bpred_addr_rate    1.0000 # branch address-prediction rate (i.e., addr-hits/updates)
+Thread_3_bpred_bimod.bpred_dir_rate    1.0000 # branch direction-prediction rate (i.e., all-hits/updates)
+Thread_3_bpred_bimod.bpred_jr_rate <error: divide by zero> # JR address-prediction rate (i.e., JR addr-hits/JRs seen)
+Thread_3_bpred_bimod.bpred_jr_non_ras_rate.PP    0.8921 # non-RAS JR addr-pred rate (ie, non-RAS JR hits/JRs seen)
+Thread_3_bpred_bimod.retstack_pushes            0 # total number of address pushed onto ret-addr stack
+Thread_3_bpred_bimod.retstack_pops            0 # total number of address popped off of ret-addr stack
+Thread_3_bpred_bimod.used_ras.PP            0 # total number of RAS predictions used
+Thread_3_bpred_bimod.ras_hits.PP            0 # total number of RAS hits
+Thread_3_bpred_bimod.ras_rate.PP <error: divide by zero> # RAS prediction rate (i.e., RAS hits/used RAS)
+Thread_0_cpred_bimod.lookups       537177 # total number of bpred lookups
+Thread_0_cpred_bimod.updates       537177 # total number of updates
+Thread_0_cpred_bimod.addr_hits        74095 # total number of address-predicted hits
+Thread_0_cpred_bimod.dir_hits        74095 # total number of direction-predicted hits (includes addr-hits)
+Thread_0_cpred_bimod.misses       463082 # total number of misses
+Thread_0_cpred_bimod.jr_hits            0 # total number of address-predicted hits for JR's
+Thread_0_cpred_bimod.jr_seen            0 # total number of JR's seen
+Thread_0_cpred_bimod.jr_non_ras_hits.PP            0 # total number of address-predicted hits for non-RAS JR's
+Thread_0_cpred_bimod.jr_non_ras_seen.PP            0 # total number of non-RAS JR's seen
+Thread_0_cpred_bimod.bpred_addr_rate    0.1379 # branch address-prediction rate (i.e., addr-hits/updates)
+Thread_0_cpred_bimod.bpred_dir_rate    0.1379 # branch direction-prediction rate (i.e., all-hits/updates)
+Thread_0_cpred_bimod.bpred_jr_rate <error: divide by zero> # JR address-prediction rate (i.e., JR addr-hits/JRs seen)
+Thread_0_cpred_bimod.bpred_jr_non_ras_rate.PP <error: divide by zero> # non-RAS JR addr-pred rate (ie, non-RAS JR hits/JRs seen)
+Thread_0_cpred_bimod.retstack_pushes            0 # total number of address pushed onto ret-addr stack
+Thread_0_cpred_bimod.retstack_pops            0 # total number of address popped off of ret-addr stack
+Thread_0_cpred_bimod.used_ras.PP            0 # total number of RAS predictions used
+Thread_0_cpred_bimod.ras_hits.PP            0 # total number of RAS hits
+Thread_0_cpred_bimod.ras_rate.PP <error: divide by zero> # RAS prediction rate (i.e., RAS hits/used RAS)
+Thread_1_cpred_bimod.lookups       970998 # total number of bpred lookups
+Thread_1_cpred_bimod.updates       970998 # total number of updates
+Thread_1_cpred_bimod.addr_hits       351032 # total number of address-predicted hits
+Thread_1_cpred_bimod.dir_hits       351032 # total number of direction-predicted hits (includes addr-hits)
+Thread_1_cpred_bimod.misses       619966 # total number of misses
+Thread_1_cpred_bimod.jr_hits            0 # total number of address-predicted hits for JR's
+Thread_1_cpred_bimod.jr_seen            0 # total number of JR's seen
+Thread_1_cpred_bimod.jr_non_ras_hits.PP            0 # total number of address-predicted hits for non-RAS JR's
+Thread_1_cpred_bimod.jr_non_ras_seen.PP            0 # total number of non-RAS JR's seen
+Thread_1_cpred_bimod.bpred_addr_rate    0.3615 # branch address-prediction rate (i.e., addr-hits/updates)
+Thread_1_cpred_bimod.bpred_dir_rate    0.3615 # branch direction-prediction rate (i.e., all-hits/updates)
+Thread_1_cpred_bimod.bpred_jr_rate <error: divide by zero> # JR address-prediction rate (i.e., JR addr-hits/JRs seen)
+Thread_1_cpred_bimod.bpred_jr_non_ras_rate.PP <error: divide by zero> # non-RAS JR addr-pred rate (ie, non-RAS JR hits/JRs seen)
+Thread_1_cpred_bimod.retstack_pushes            0 # total number of address pushed onto ret-addr stack
+Thread_1_cpred_bimod.retstack_pops            0 # total number of address popped off of ret-addr stack
+Thread_1_cpred_bimod.used_ras.PP            0 # total number of RAS predictions used
+Thread_1_cpred_bimod.ras_hits.PP            0 # total number of RAS hits
+Thread_1_cpred_bimod.ras_rate.PP <error: divide by zero> # RAS prediction rate (i.e., RAS hits/used RAS)
+Thread_2_cpred_bimod.lookups       670510 # total number of bpred lookups
+Thread_2_cpred_bimod.updates       670510 # total number of updates
+Thread_2_cpred_bimod.addr_hits       227110 # total number of address-predicted hits
+Thread_2_cpred_bimod.dir_hits       227110 # total number of direction-predicted hits (includes addr-hits)
+Thread_2_cpred_bimod.misses       443400 # total number of misses
+Thread_2_cpred_bimod.jr_hits            0 # total number of address-predicted hits for JR's
+Thread_2_cpred_bimod.jr_seen            0 # total number of JR's seen
+Thread_2_cpred_bimod.jr_non_ras_hits.PP            0 # total number of address-predicted hits for non-RAS JR's
+Thread_2_cpred_bimod.jr_non_ras_seen.PP            0 # total number of non-RAS JR's seen
+Thread_2_cpred_bimod.bpred_addr_rate    0.3387 # branch address-prediction rate (i.e., addr-hits/updates)
+Thread_2_cpred_bimod.bpred_dir_rate    0.3387 # branch direction-prediction rate (i.e., all-hits/updates)
+Thread_2_cpred_bimod.bpred_jr_rate <error: divide by zero> # JR address-prediction rate (i.e., JR addr-hits/JRs seen)
+Thread_2_cpred_bimod.bpred_jr_non_ras_rate.PP <error: divide by zero> # non-RAS JR addr-pred rate (ie, non-RAS JR hits/JRs seen)
+Thread_2_cpred_bimod.retstack_pushes            0 # total number of address pushed onto ret-addr stack
+Thread_2_cpred_bimod.retstack_pops            0 # total number of address popped off of ret-addr stack
+Thread_2_cpred_bimod.used_ras.PP            0 # total number of RAS predictions used
+Thread_2_cpred_bimod.ras_hits.PP            0 # total number of RAS hits
+Thread_2_cpred_bimod.ras_rate.PP <error: divide by zero> # RAS prediction rate (i.e., RAS hits/used RAS)
+Thread_3_cpred_bimod.lookups      1120429 # total number of bpred lookups
+Thread_3_cpred_bimod.updates      1120429 # total number of updates
+Thread_3_cpred_bimod.addr_hits      1111191 # total number of address-predicted hits
+Thread_3_cpred_bimod.dir_hits      1111191 # total number of direction-predicted hits (includes addr-hits)
+Thread_3_cpred_bimod.misses         9238 # total number of misses
+Thread_3_cpred_bimod.jr_hits            0 # total number of address-predicted hits for JR's
+Thread_3_cpred_bimod.jr_seen            0 # total number of JR's seen
+Thread_3_cpred_bimod.jr_non_ras_hits.PP            0 # total number of address-predicted hits for non-RAS JR's
+Thread_3_cpred_bimod.jr_non_ras_seen.PP            0 # total number of non-RAS JR's seen
+Thread_3_cpred_bimod.bpred_addr_rate    0.9918 # branch address-prediction rate (i.e., addr-hits/updates)
+Thread_3_cpred_bimod.bpred_dir_rate    0.9918 # branch direction-prediction rate (i.e., all-hits/updates)
+Thread_3_cpred_bimod.bpred_jr_rate <error: divide by zero> # JR address-prediction rate (i.e., JR addr-hits/JRs seen)
+Thread_3_cpred_bimod.bpred_jr_non_ras_rate.PP <error: divide by zero> # non-RAS JR addr-pred rate (ie, non-RAS JR hits/JRs seen)
+Thread_3_cpred_bimod.retstack_pushes            0 # total number of address pushed onto ret-addr stack
+Thread_3_cpred_bimod.retstack_pops            0 # total number of address popped off of ret-addr stack
+Thread_3_cpred_bimod.used_ras.PP            0 # total number of RAS predictions used
+Thread_3_cpred_bimod.ras_hits.PP            0 # total number of RAS hits
+Thread_3_cpred_bimod.ras_rate.PP <error: divide by zero> # RAS prediction rate (i.e., RAS hits/used RAS)
+il1.accesses               24924461 # total number of accesses
+il1.hits                   24771122 # total number of hits
+il1.misses                   153339 # total number of misses
+il1.replacements             153339 # total number of replacements
+il1.writebacks                    0 # total number of writebacks
+il1.invalidations                 0 # total number of invalidations
+il1.miss_rate                0.0062 # miss rate (i.e., misses/ref)
+il1.repl_rate                0.0062 # replacement rate (i.e., repls/ref)
+il1.wb_rate                  0.0000 # writeback rate (i.e., wrbks/ref)
+il1.inv_rate                 0.0000 # invalidation rate (i.e., invs/ref)
+dl1.accesses                9376465 # total number of accesses
+dl1.hits                    8352759 # total number of hits
+dl1.misses                  1023706 # total number of misses
+dl1.replacements            1023706 # total number of replacements
+dl1.writebacks               662842 # total number of writebacks
+dl1.invalidations                 0 # total number of invalidations
+dl1.miss_rate                0.1092 # miss rate (i.e., misses/ref)
+dl1.repl_rate                0.1092 # replacement rate (i.e., repls/ref)
+dl1.wb_rate                  0.0707 # writeback rate (i.e., wrbks/ref)
+dl1.inv_rate                 0.0000 # invalidation rate (i.e., invs/ref)
+ul2.accesses                1839887 # total number of accesses
+ul2.hits                    1095039 # total number of hits
+ul2.misses                   744848 # total number of misses
+ul2.replacements             744848 # total number of replacements
+ul2.writebacks               450842 # total number of writebacks
+ul2.invalidations                 0 # total number of invalidations
+ul2.miss_rate                0.4048 # miss rate (i.e., misses/ref)
+ul2.repl_rate                0.4048 # replacement rate (i.e., repls/ref)
+ul2.wb_rate                  0.2450 # writeback rate (i.e., wrbks/ref)
+ul2.inv_rate                 0.0000 # invalidation rate (i.e., invs/ref)
+itlb.accesses              24924461 # total number of accesses
+itlb.hits                  24920185 # total number of hits
+itlb.misses                    4276 # total number of misses
+itlb.replacements              4276 # total number of replacements
+itlb.writebacks                   0 # total number of writebacks
+itlb.invalidations                0 # total number of invalidations
+itlb.miss_rate               0.0002 # miss rate (i.e., misses/ref)
+itlb.repl_rate               0.0002 # replacement rate (i.e., repls/ref)
+itlb.wb_rate                 0.0000 # writeback rate (i.e., wrbks/ref)
+itlb.inv_rate                0.0000 # invalidation rate (i.e., invs/ref)
+dtlb.accesses               9454140 # total number of accesses
+dtlb.hits                   9370292 # total number of hits
+dtlb.misses                   83848 # total number of misses
+dtlb.replacements             83848 # total number of replacements
+dtlb.writebacks                   0 # total number of writebacks
+dtlb.invalidations                0 # total number of invalidations
+dtlb.miss_rate               0.0089 # miss rate (i.e., misses/ref)
+dtlb.repl_rate               0.0089 # replacement rate (i.e., repls/ref)
+dtlb.wb_rate                 0.0000 # writeback rate (i.e., wrbks/ref)
+dtlb.inv_rate                0.0000 # invalidation rate (i.e., invs/ref)
+sim_invalid_addrs                 0 # total non-speculative bogus addresses seen (debug var)
+ld_text_base           0x0120000000 # program text (code) segment base
+mem->ld_text_size            294912 # program text (code) size in bytes
+mem->ld_data_base      0x0140000000 # program initialized data segment base
+mem->ld_data_size             93888 # program init'ed `.data' and uninit'ed `.bss' size in bytes
+mem->ld_stack_base     0x011ff9b000 # program stack segment base (highest address in stack)
+mem->ld_stack_size            16384 # program initial stack size
+mem->ld_prog_entry     0x0120000300 # program entry point (initial PC)
+mem->ld_environ_base   0x011ff97000 # program environment base address address
+mem->ld_target_big_endian            0 # target executable endian-ness, non-zero if big endian
+mem_0.page_count             108052 # total number of pages allocated
+mem_0.page_mem              864416k # total size of memory pages allocated
+mem_0.ptab_misses            112952 # total first level page table misses
+mem_0.ptab_accesses       118890360 # total page table accesses
+mem_0.ptab_miss_rate         0.0010 # first level page table miss rate
+ld_text_base           0x0120000000 # program text (code) segment base
+mem->ld_text_size           1384448 # program text (code) size in bytes
+mem->ld_data_base      0x0140000000 # program initialized data segment base
+mem->ld_data_size            451744 # program init'ed `.data' and uninit'ed `.bss' size in bytes
+mem->ld_stack_base     0x011ff9b000 # program stack segment base (highest address in stack)
+mem->ld_stack_size            16384 # program initial stack size
+mem->ld_prog_entry     0x012002e820 # program entry point (initial PC)
+mem->ld_environ_base   0x011ff97000 # program environment base address address
+mem->ld_target_big_endian            0 # target executable endian-ness, non-zero if big endian
+mem_0.page_count               2039 # total number of pages allocated
+mem_0.page_mem              864416k # total size of memory pages allocated
+mem_0.ptab_misses             22273 # total first level page table misses
+mem_0.ptab_accesses       114972120 # total page table accesses
+mem_0.ptab_miss_rate         0.0010 # first level page table miss rate
+ld_text_base           0x0120000000 # program text (code) segment base
+mem->ld_text_size           4268032 # program text (code) size in bytes
+mem->ld_data_base      0x0140000000 # program initialized data segment base
+mem->ld_data_size           1160640 # program init'ed `.data' and uninit'ed `.bss' size in bytes
+mem->ld_stack_base     0x011ff9b000 # program stack segment base (highest address in stack)
+mem->ld_stack_size            16384 # program initial stack size
+mem->ld_prog_entry     0x0120081330 # program entry point (initial PC)
+mem->ld_environ_base   0x011ff97000 # program environment base address address
+mem->ld_target_big_endian            0 # target executable endian-ness, non-zero if big endian
+mem_0.page_count                722 # total number of pages allocated
+mem_0.page_mem              864416k # total size of memory pages allocated
+mem_0.ptab_misses             44065 # total first level page table misses
+mem_0.ptab_accesses        93923177 # total page table accesses
+mem_0.ptab_miss_rate         0.0010 # first level page table miss rate
+ld_text_base           0x0120000000 # program text (code) segment base
+mem->ld_text_size            221184 # program text (code) size in bytes
+mem->ld_data_base      0x0140000000 # program initialized data segment base
+mem->ld_data_size             79792 # program init'ed `.data' and uninit'ed `.bss' size in bytes
+mem->ld_stack_base     0x011ff9b000 # program stack segment base (highest address in stack)
+mem->ld_stack_size            16384 # program initial stack size
+mem->ld_prog_entry     0x0120000300 # program entry point (initial PC)
+mem->ld_environ_base   0x011ff97000 # program environment base address address
+mem->ld_target_big_endian            0 # target executable endian-ness, non-zero if big endian
+mem_0.page_count             107560 # total number of pages allocated
+mem_0.page_mem              864416k # total size of memory pages allocated
+mem_0.ptab_misses            978333 # total first level page table misses
+mem_0.ptab_accesses       274207724 # total page table accesses
+mem_0.ptab_miss_rate         0.0010 # first level page table miss rate
+rename_power           5270931.0490 # total power usage of rename unit
+bpred_power            34889804.8815 # total power usage of bpred unit
+window_power           110121502.0125 # total power usage of instruction window
+lsq_power              61490956.6649 # total power usage of load/store queue
+regfile_power          27556792.3135 # total power usage of arch. regfile
+icache_power           32658058.4809 # total power usage of icache
+dcache_power           71334084.1339 # total power usage of dcache
+dcache2_power          40112017.9882 # total power usage of dcache2
+alu_power              146105559.7515 # total power usage of alu
+falu_power             110158953.7794 # total power usage of falu
+resultbus_power        69522540.1297 # total power usage of resultbus
+clock_power            235160968.3332 # total power usage of clock
+avg_rename_power             0.6833 # avg power usage of rename unit
+avg_bpred_power              4.5231 # avg power usage of bpred unit
+avg_window_power            14.2762 # avg power usage of instruction window
+avg_lsq_power                7.9717 # avg power usage of lsq
+avg_regfile_power            3.5725 # avg power usage of arch. regfile
+avg_icache_power             4.2338 # avg power usage of icache
+avg_dcache_power             9.2478 # avg power usage of dcache
+avg_dcache2_power            5.2001 # avg power usage of dcache2
+avg_alu_power               18.9412 # avg power usage of alu
+avg_falu_power              14.2810 # avg power usage of falu
+avg_resultbus_power          9.0129 # avg power usage of resultbus
+avg_clock_power             30.4863 # avg power usage of clock
+fetch_stage_power      67547863.3624 # total power usage of fetch stage
+dispatch_stage_power   5270931.0490 # total power usage of dispatch stage
+issue_stage_power      498686660.6807 # total power usage of issue stage
+avg_fetch_power              8.7569 # average power of fetch unit per cycle
+avg_dispatch_power           0.6833 # average power of dispatch unit per cycle
+avg_issue_power             64.6499 # average power of issue unit per cycle
+total_power            834223215.7389 # total power per cycle
+avg_total_power_cycle      108.1490 # average total power per cycle
+avg_total_power_cycle_nofp_nod2      88.6678 # average total power per cycle
+avg_total_power_insn        35.0803 # average total power per insn
+avg_total_power_insn_nofp_nod2      28.7612 # average total power per insn
+rename_power_cc1       4837702.7911 # total power usage of rename unit_cc1
+bpred_power_cc1        5307979.2883 # total power usage of bpred unit_cc1
+window_power_cc1       114536050.6884 # total power usage of instruction window_cc1
+lsq_power_cc1          29364521.2117 # total power usage of lsq_cc1
+regfile_power_cc1      18105620.7167 # total power usage of arch. regfile_cc1
+icache_power_cc1       29063768.0218 # total power usage of icache_cc1
+dcache_power_cc1       55397055.2577 # total power usage of dcache_cc1
+dcache2_power_cc1      5879297.0640 # total power usage of dcache2_cc1
+alu_power_cc1          39849145.7846 # total power usage of alu_cc1
+resultbus_power_cc1    57961878.4746 # total power usage of resultbus_cc1
+clock_power_cc1        150024157.3448 # total power usage of clock_cc1
+avg_rename_power_cc1         0.6272 # avg power usage of rename unit_cc1
+avg_bpred_power_cc1          0.6881 # avg power usage of bpred unit_cc1
+avg_window_power_cc1        14.8485 # avg power usage of instruction window_cc1
+avg_lsq_power_cc1            3.8068 # avg power usage of lsq_cc1
+avg_regfile_power_cc1        2.3472 # avg power usage of arch. regfile_cc1
+avg_icache_power_cc1         3.7678 # avg power usage of icache_cc1
+avg_dcache_power_cc1         7.1817 # avg power usage of dcache_cc1
+avg_dcache2_power_cc1        0.7622 # avg power usage of dcache2_cc1
+avg_alu_power_cc1            5.1661 # avg power usage of alu_cc1
+avg_resultbus_power_cc1       7.5142 # avg power usage of resultbus_cc1
+avg_clock_power_cc1         19.4492 # avg power usage of clock_cc1
+fetch_stage_power_cc1  34371747.3101 # total power usage of fetch stage_cc1
+dispatch_stage_power_cc1 4837702.7911 # total power usage of dispatch stage_cc1
+issue_stage_power_cc1  302987948.4810 # total power usage of issue stage_cc1
+avg_fetch_power_cc1          4.4560 # average power of fetch unit per cycle_cc1
+avg_dispatch_power_cc1       0.6272 # average power of dispatch unit per cycle_cc1
+avg_issue_power_cc1         39.2795 # average power of issue unit per cycle_cc1
+total_power_cycle_cc1  510327176.6437 # total power per cycle_cc1
+avg_total_power_cycle_cc1      66.1590 # average total power per cycle_cc1
+avg_total_power_insn_cc1      21.4600 # average total power per insn_cc1
+rename_power_cc2       4062430.4029 # total power usage of rename unit_cc2
+bpred_power_cc2        2892724.7785 # total power usage of bpred unit_cc2
+window_power_cc2       110168542.2927 # total power usage of instruction window_cc2
+lsq_power_cc2          20231534.0068 # total power usage of lsq_cc2
+regfile_power_cc2      4772189.1920 # total power usage of arch. regfile_cc2
+icache_power_cc2       29063768.0218 # total power usage of icache_cc2
+dcache_power_cc2       43355711.8797 # total power usage of dcache_cc2
+dcache2_power_cc2      4783831.2324 # total power usage of dcache2_cc2
+alu_power_cc2          24513841.8933 # total power usage of alu_cc2
+resultbus_power_cc2    47525739.9981 # total power usage of resultbus_cc2
+clock_power_cc2        121460595.3964 # total power usage of clock_cc2
+avg_rename_power_cc2         0.5267 # avg power usage of rename unit_cc2
+avg_bpred_power_cc2          0.3750 # avg power usage of bpred unit_cc2
+avg_window_power_cc2        14.2823 # avg power usage of instruction window_cc2
+avg_lsq_power_cc2            2.6228 # avg power usage of instruction lsq_cc2
+avg_regfile_power_cc2        0.6187 # avg power usage of arch. regfile_cc2
+avg_icache_power_cc2         3.7678 # avg power usage of icache_cc2
+avg_dcache_power_cc2         5.6206 # avg power usage of dcache_cc2
+avg_dcache2_power_cc2        0.6202 # avg power usage of dcache2_cc2
+avg_alu_power_cc2            3.1780 # avg power usage of alu_cc2
+avg_resultbus_power_cc2       6.1613 # avg power usage of resultbus_cc2
+avg_clock_power_cc2         15.7462 # avg power usage of clock_cc2
+fetch_stage_power_cc2  31956492.8002 # total power usage of fetch stage_cc2
+dispatch_stage_power_cc2 4062430.4029 # total power usage of dispatch stage_cc2
+issue_stage_power_cc2  250579201.3029 # total power usage of issue stage_cc2
+avg_fetch_power_cc2          4.1429 # average power of fetch unit per cycle_cc2
+avg_dispatch_power_cc2       0.5267 # average power of dispatch unit per cycle_cc2
+avg_issue_power_cc2         32.4852 # average power of issue unit per cycle_cc2
+total_power_cycle_cc2  412830909.0944 # total power per cycle_cc2
+avg_total_power_cycle_cc2      53.5195 # average total power per cycle_cc2
+avg_total_power_insn_cc2      17.3602 # average total power per insn_cc2
+rename_power_cc3       4105753.2287 # total power usage of rename unit_cc3
+bpred_power_cc3        5852301.8176 # total power usage of bpred unit_cc3
+window_power_cc3       110333872.2460 # total power usage of instruction window_cc3
+lsq_power_cc3          23326656.7263 # total power usage of lsq_cc3
+regfile_power_cc3      5437091.2697 # total power usage of arch. regfile_cc3
+icache_power_cc3       29423197.0681 # total power usage of icache_cc3
+dcache_power_cc3       45294877.8996 # total power usage of dcache_cc3
+dcache2_power_cc3      8236574.8345 # total power usage of dcache2_cc3
+alu_power_cc3          35139483.2870 # total power usage of alu_cc3
+resultbus_power_cc3    47758524.9546 # total power usage of resultbus_cc3
+clock_power_cc3        129851563.8683 # total power usage of clock_cc3
+avg_rename_power_cc3         0.5323 # avg power usage of rename unit_cc3
+avg_bpred_power_cc3          0.7587 # avg power usage of bpred unit_cc3
+avg_window_power_cc3        14.3037 # avg power usage of instruction window_cc3
+avg_lsq_power_cc3            3.0241 # avg power usage of instruction lsq_cc3
+avg_regfile_power_cc3        0.7049 # avg power usage of arch. regfile_cc3
+avg_icache_power_cc3         3.8144 # avg power usage of icache_cc3
+avg_dcache_power_cc3         5.8720 # avg power usage of dcache_cc3
+avg_dcache2_power_cc3        1.0678 # avg power usage of dcache2_cc3
+avg_alu_power_cc3            4.5555 # avg power usage of alu_cc3
+avg_resultbus_power_cc3       6.1914 # avg power usage of resultbus_cc3
+avg_clock_power_cc3         16.8340 # avg power usage of clock_cc3
+fetch_stage_power_cc3  35275498.8857 # total power usage of fetch stage_cc3
+dispatch_stage_power_cc3 4105753.2287 # total power usage of dispatch stage_cc3
+issue_stage_power_cc3  270089989.9481 # total power usage of issue stage_cc3
+avg_fetch_power_cc3          4.5731 # average power of fetch unit per cycle_cc3
+avg_dispatch_power_cc3       0.5323 # average power of dispatch unit per cycle_cc3
+avg_issue_power_cc3         35.0146 # average power of issue unit per cycle_cc3
+total_power_cycle_cc3  444759897.2005 # total power per cycle_cc3
+avg_total_power_cycle_cc3      57.6588 # average total power per cycle_cc3
+avg_total_power_insn_cc3      18.7028 # average total power per insn_cc3
+total_rename_access        23780359 # total number accesses of rename unit
+total_bpred_access          1279082 # total number accesses of bpred unit
+total_window_access        83371562 # total number accesses of instruction window
+total_lsq_access            9516112 # total number accesses of load/store queue
+total_regfile_access       18532051 # total number accesses of arch. regfile
+total_icache_access        24989129 # total number accesses of icache
+total_dcache_access         9376463 # total number accesses of dcache
+total_dcache2_access        1839887 # total number accesses of dcache2
+total_alu_access           20336557 # total number accesses of alu
+total_resultbus_access     24915958 # total number accesses of resultbus
+avg_rename_access            3.0829 # avg number accesses of rename unit
+avg_bpred_access             0.1658 # avg number accesses of bpred unit
+avg_window_access           10.8083 # avg number accesses of instruction window
+avg_lsq_access               1.2337 # avg number accesses of lsq
+avg_regfile_access           2.4025 # avg number accesses of arch. regfile
+avg_icache_access            3.2396 # avg number accesses of icache
+avg_dcache_access            1.2156 # avg number accesses of dcache
+avg_dcache2_access           0.2385 # avg number accesses of dcache2
+avg_alu_access               2.6364 # avg number accesses of alu
+avg_resultbus_access         3.2301 # avg number accesses of resultbus
+max_rename_access                 4 # max number accesses of rename unit
+max_bpred_access                  5 # max number accesses of bpred unit
+max_window_access                53 # max number accesses of instruction window
+max_lsq_access                    4 # max number accesses of load/store queue
+max_regfile_access               16 # max number accesses of arch. regfile
+max_icache_access                 4 # max number accesses of icache
+max_dcache_access                 4 # max number accesses of dcache
+max_dcache2_access                8 # max number accesses of dcache2
+max_alu_access                    4 # max number accesses of alu
+max_resultbus_access             51 # max number accesses of resultbus
+max_cycle_power_cc1        184.4046 # maximum cycle power usage of cc1
+max_cycle_power_cc2        175.1950 # maximum cycle power usage of cc2
+max_cycle_power_cc3        179.6217 # maximum cycle power usage of cc3
+
+
+******* SMT STATS *******
+THROUGHPUT IPC: 2.5880
+
+TH0 IPC: 0.7258
+
+TH1 IPC: 0.5400
+
+TH2 IPC: 0.4889
+
+TH3 IPC: 0.8332
+
